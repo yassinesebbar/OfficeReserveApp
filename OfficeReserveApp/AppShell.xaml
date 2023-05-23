@@ -12,12 +12,24 @@
                 x:Name="LoginPage">
         <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" Route="LoginPage"/>
     </FlyoutItem>
-        
-    
+
+    <FlyoutItem Route="OfficeManagementOverview"
+                x:Name="OfficeManagementOverviewPage">
+        <ShellContent ContentTemplate="{DataTemplate views:OfficeManagementOverviewPage}" Route="OfficeManagementOverviewPage"/>
+    </FlyoutItem>
+
     <ShellContent
         x:Name="DashboardPage"
         Title="Home"
         ContentTemplate="{DataTemplate views:DashboardPage}"
         Route="DashboardPage" />
+
+    <ShellContent
+        x:Name="WorkSpotOverviewPage"
+        Title="WorkSpotOverviewPage"
+        ContentTemplate="{DataTemplate views:WorkSpotOverviewPage}"
+        Route="WorkSpotOverviewPage" />
+
+
 
 </Shell>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using OfficeReserveApp.Services;
 
 namespace OfficeReserveApp;
 
@@ -14,6 +15,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
+
 
 #if DEBUG
 		builder.Logging.AddDebug();

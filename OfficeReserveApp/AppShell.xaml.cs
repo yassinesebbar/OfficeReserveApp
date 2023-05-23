@@ -1,4 +1,7 @@
-﻿namespace OfficeReserveApp;
+﻿using OfficeReserveApp.MVVM.ViewModel;
+using OfficeReserveApp.MVVM.ViewModels;
+
+namespace OfficeReserveApp;
 
 public partial class AppShell : Shell
 {
@@ -6,15 +9,16 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
 
-		var userLoggedIn = Preferences.Get("UserLoggedIn", false);
+		BaseViewModel BaseViewModel = new BaseViewModel();
 
-		if (userLoggedIn)
+		if (BaseViewModel.UserIsAuthenticated())
 		{
-            Shell.CurrentItem = DashboardPage;
-        }
+            BaseViewModel.RouteBasedOnState();
+		}
 		else
 		{
             Shell.CurrentItem = LoginPage;
-		}
+        }
+		
     }
 }

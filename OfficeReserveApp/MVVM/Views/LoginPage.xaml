@@ -7,8 +7,8 @@
              Shell.NavBarIsVisible="False"
              Title="LoginPage">
     <VerticalStackLayout VerticalOptions="Center">
-        <Entry Placeholder="username" Text="{Binding loginRequest.UserName}"/>
-        <Entry Placeholder="password" Text="{Binding loginRequest.Password}"/>
+        <Entry Placeholder="username" Text="{Binding LoginRequest.UserName}"/>
+        <Entry Placeholder="password" IsPassword="True" Text="{Binding LoginRequest.Password}"/>
         <Button Text="Login" BackgroundColor="Black"
                 TextColor="White"
                 Command="{Binding LoginCommand}"/>
