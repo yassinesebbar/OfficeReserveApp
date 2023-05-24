@@ -13,7 +13,7 @@ public partial class AppShell : Shell
 
 		if (BaseViewModel.UserIsAuthenticated())
 		{
-            BaseViewModel.RouteBasedOnState();
+            BaseViewModel.RouteBasedOnUser();
 		}
 		else
 		{

@@ -10,7 +10,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
     {
         public WorkSpotOverviewModel() 
         {
-            UserAuthentication();
+            
         }
 
     }

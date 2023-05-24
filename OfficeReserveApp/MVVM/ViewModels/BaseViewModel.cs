@@ -12,26 +12,18 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
     public class BaseViewModel
     {
-        protected AuthenticationService AuthenticationService { get; private set; } = App.authenticationService;
+        protected AuthenticationService AuthenticationService { get; private set; }
 
         public BaseViewModel()
         {
-            
+            AuthenticationService= App.authenticationService;
         }
 
-        public void UserAuthentication()
-        {
-            if (!AuthenticationService.UserIsAuthenticated())
-            {
-                Logout();
-            }
-        }
-
-        public async void Logout()
+        public void Logout()
         {
             AuthenticationService.Logout();
 
-            RouteBasedOnState();
+            RouteBasedOnUser();
 
         }
 
@@ -42,25 +34,30 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             if (AuthenticationService.UserIsAuthenticated())
             {
-                RouteBasedOnState();
+                RouteBasedOnUser();
             }
         }
 
-        public void RouteBasedOnState()
+        public void RouteBasedOnUser()
         {
             if (AuthenticationService.UserIsAuthenticated())
             {
                 if (AuthenticationService.User.Rol == Rol.Medewerker)
                 {
-                     Shell.Current.GoToAsync(state: "//WorkSpotOverviewPage");
+                     Shell.Current.GoToAsync(state: Constants.WorkSpotOverview);
                 }else if (AuthenticationService.User.Rol == Rol.Officemanager)
                 {
-                    Shell.Current.GoToAsync(state: "//OfficeManagementOverviewPage");
+                    Shell.Current.GoToAsync(state: Constants.OfficeManagerOverview);
+                }
+                else
+                {
+                    // If user has a unknown role
+                    Shell.Current.GoToAsync(state: Constants.LoginPage);
                 }
             }
             else
             {
-                Shell.Current.GoToAsync(state: "//LoginPage");
+                Shell.Current.GoToAsync(state: Constants.LoginPage);
             }
         }
 

@@ -4,31 +4,35 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:OfficeReserveApp.MVVM.Views"
+    xmlns:local="clr-namespace:OfficeReserveApp"
     Shell.FlyoutBehavior="Flyout"
+    
     x:Name="Shell">
+
 
 
     <FlyoutItem Route="Login"
                 x:Name="LoginPage">
-        <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" Route="LoginPage"/>
+        <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" Route="{x:Static local:Constants.LoginPage}"/>
     </FlyoutItem>
 
     <FlyoutItem Route="OfficeManagementOverview"
                 x:Name="OfficeManagementOverviewPage">
-        <ShellContent ContentTemplate="{DataTemplate views:OfficeManagementOverviewPage}" Route="OfficeManagementOverviewPage"/>
+        <ShellContent ContentTemplate="{DataTemplate views:OfficeManagementOverviewPage}" 
+                      Route="{x:Static local:Constants.OfficeManagerOverview}"/>
     </FlyoutItem>
 
     <ShellContent
         x:Name="DashboardPage"
         Title="Home"
         ContentTemplate="{DataTemplate views:DashboardPage}"
-        Route="DashboardPage" />
+        Route="//DashboardPage" />
 
     <ShellContent
         x:Name="WorkSpotOverviewPage"
         Title="WorkSpotOverviewPage"
         ContentTemplate="{DataTemplate views:WorkSpotOverviewPage}"
-        Route="WorkSpotOverviewPage" />
+        Route="{x:Static local:Constants.WorkSpotOverview}" />
 
 
 
