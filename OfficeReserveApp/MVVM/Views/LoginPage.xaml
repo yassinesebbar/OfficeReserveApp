@@ -6,12 +6,23 @@
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False"
              Title="LoginPage">
-    <VerticalStackLayout VerticalOptions="Center">
-        <Entry Placeholder="username" Text="{Binding LoginRequest.UserName}"/>
-        <Entry Placeholder="password" IsPassword="True" Text="{Binding LoginRequest.Password}"/>
-        <Button Text="Login" BackgroundColor="Black"
-                TextColor="White"
-                Command="{Binding LoginCommand}"/>
+    <VerticalStackLayout Margin="40" HorizontalOptions="Fill" VerticalOptions="Center">
+        <VerticalStackLayout >
+            <Image Source="edenwhitelogo.png" WidthRequest="100" HeightRequest="50"/>
+            <Entry Placeholder="Gebruikersnaam" TextColor="#000" x:Name="textUserName"  Text="{Binding LoginRequest.UserName}"/>
+            <Entry Placeholder="Wachtwoord" TextColor="#000" x:Name="txtPassword" IsPassword="True" Text="{Binding LoginRequest.Password}"/>
+
+            <Button Text="Inloggen" 
+                    BackgroundColor="#3d5377"
+                    BorderColor="#3d5377"
+                    BorderWidth="0"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    TextTransform="Uppercase"
+                    Command="{Binding LoginCommand}"
+                    CornerRadius="50"/>
+        </VerticalStackLayout>
+       
 
     </VerticalStackLayout>
 </ContentPage>
