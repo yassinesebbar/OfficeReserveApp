@@ -13,14 +13,11 @@ namespace OfficeReserveApp
         public static string BaseURL = "https://officereservesystem-sandbox.mxapps.io";
 
         public static string AuthenticationEndpoint = BaseURL + "/rest/user/service/login";
-        public static string UserEndpoint = "";
-        public static string ReservationEndpoint = "";
+        public static string GetMyOfficeReservationsEndpoint = BaseURL +  "/rest/reservation/v1/service/myworkspotreservations";
+        public static string GetMyOfficeDailyAvailabilityEndpoint = BaseURL + "/rest/reservation/v1/service/getoccupation";
         public static string OfficeEndpoint = "";
 
-        // Pages
-        public static string LoginPage = "//LoginPage";
-        public static string OfficeManagerOverview = "//OfficeManagementOverviewPage";
-        public static string WorkSpotOverview = "//WorkSpotOverviewPage";
+ 
 
 
     }

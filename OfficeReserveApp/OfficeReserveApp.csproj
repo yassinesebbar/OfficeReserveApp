@@ -49,7 +49,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\LibreFranklin-Regular.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-Black.ttf" />
 	  <None Remove="Resources\Images\EdenWhiteLogo.png" />
+	  <None Remove="Resources\Images\trash.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -59,7 +62,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MVVM\Views\DashboardPage.xaml">
+	  <Compile Update="MVVM\Views\ConferenceReservationOverviewPage.xaml.cs">
+	    <DependentUpon>ConferenceReservationOverviewPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="MVVM\Views\OfficeReservationOverviewPage.xaml.cs">
+	    <DependentUpon>OfficeReservationOverviewPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="MVVM\Views\ProfileOverviewPage.xaml.cs">
+	    <DependentUpon>ProfileOverviewPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="MVVM\Views\ConferenceReservationOverviewPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\LoginPage.xaml">
@@ -68,7 +83,16 @@
 	  <MauiXaml Update="MVVM\Views\OfficeManagementOverviewPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\Views\WorkSpotOverviewPage.xaml">
+	  <MauiXaml Update="MVVM\Views\OfficeReservationOverviewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\ProfileOverviewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\Template.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\AppStyles.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

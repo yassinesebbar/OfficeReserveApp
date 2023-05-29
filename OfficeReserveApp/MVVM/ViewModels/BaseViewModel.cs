@@ -1,4 +1,5 @@
 ﻿using OfficeReserveApp.MVVM.Models;
+using OfficeReserveApp.MVVM.Views;
 using OfficeReserveApp.Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace OfficeReserveApp.MVVM.ViewModels
     public class BaseViewModel
     {
         protected AuthenticationService AuthenticationService { get; private set; }
+        protected HttpClient Client { get; private set; } = App.client;
+
 
         public BaseViewModel()
         {
@@ -32,10 +35,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             await AuthenticationService.Login(loginRequest);
 
-            if (AuthenticationService.UserIsAuthenticated())
-            {
-                RouteBasedOnUser();
-            }
+            RouteBasedOnUser();
         }
 
         public void RouteBasedOnUser()
@@ -44,20 +44,20 @@ namespace OfficeReserveApp.MVVM.ViewModels
             {
                 if (AuthenticationService.User.Rol == Rol.Medewerker)
                 {
-                     Shell.Current.GoToAsync(state: Constants.WorkSpotOverview);
+                     Shell.Current.GoToAsync($"//{nameof(OfficeReservationOverviewPage)}");
                 }else if (AuthenticationService.User.Rol == Rol.Officemanager)
                 {
-                    Shell.Current.GoToAsync(state: Constants.OfficeManagerOverview);
+                    Shell.Current.GoToAsync($"//{nameof(OfficeManagementOverviewPage)}");
                 }
                 else
                 {
                     // If user has a unknown role
-                    Shell.Current.GoToAsync(state: Constants.LoginPage);
+                    Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                 }
             }
             else
             {
-                Shell.Current.GoToAsync(state: Constants.LoginPage);
+                Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
             }
         }
 

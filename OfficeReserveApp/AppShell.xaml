@@ -5,35 +5,49 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:OfficeReserveApp.MVVM.Views"
     xmlns:local="clr-namespace:OfficeReserveApp"
+    Shell.NavBarIsVisible="False"
     Shell.FlyoutBehavior="Flyout"
-    
     x:Name="Shell">
 
 
-
-    <FlyoutItem Route="Login"
-                x:Name="LoginPage">
-        <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" Route="{x:Static local:Constants.LoginPage}"/>
-    </FlyoutItem>
-
-    <FlyoutItem Route="OfficeManagementOverview"
-                x:Name="OfficeManagementOverviewPage">
-        <ShellContent ContentTemplate="{DataTemplate views:OfficeManagementOverviewPage}" 
-                      Route="{x:Static local:Constants.OfficeManagerOverview}"/>
-    </FlyoutItem>
-
     <ShellContent
-        x:Name="DashboardPage"
-        Title="Home"
-        ContentTemplate="{DataTemplate views:DashboardPage}"
-        Route="//DashboardPage" />
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
 
-    <ShellContent
-        x:Name="WorkSpotOverviewPage"
-        Title="WorkSpotOverviewPage"
-        ContentTemplate="{DataTemplate views:WorkSpotOverviewPage}"
-        Route="{x:Static local:Constants.WorkSpotOverview}" />
+    <TabBar FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Medewerker">
+            <ShellContent
+                Title="Flexplek"
+                ContentTemplate="{DataTemplate views:OfficeReservationOverviewPage}"
+                Route="OfficeReservationOverviewPage" />
 
+            <ShellContent
+                Title="Ruimte"
+                ContentTemplate="{DataTemplate views:ConferenceReservationOverviewPage}"
+                Route="ConferenceReservationOverviewPage" />
 
+            <ShellContent
+                Title="Profiel"
+                ContentTemplate="{DataTemplate views:ProfileOverviewPage}"
+                Route="ProfileOverviewPage" />
+        </Tab>
+    </TabBar>
+
+    <TabBar FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="OfficeManager">
+            <ShellContent
+                Title="Kantoor"
+                ContentTemplate="{DataTemplate views:OfficeManagementOverviewPage}"
+                Route="OfficeManagementOverviewPage" />
+
+            <ShellContent
+                Title="Profiel"
+                ContentTemplate="{DataTemplate views:ProfileOverviewPage}"
+                Route="ProfileOverviewPage" />
+        </Tab>
+    </TabBar>
 
 </Shell>

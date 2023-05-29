@@ -18,4 +18,21 @@ public partial class LoginPage : ContentPage
         LoginPageViewModel.LoginRequest = new LoginRequestModel();
     }
 
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        var pageViewObject = (LoginPageViewModel)BindingContext;
+        pageViewObject.LoginAction();
+
+        pageViewObject.RouteBasedOnUser();
+    }
+
+    private void Button_Clicked1(object sender, EventArgs e)
+    {
+        var pageViewObject = (LoginPageViewModel)BindingContext;
+        pageViewObject.LoginRequest.Password = "Semperfi123!@#";
+        pageViewObject.LoginRequest.UserName = "medewerker";
+        pageViewObject.LoginAction();
+
+        pageViewObject.RouteBasedOnUser();
+    }
 }

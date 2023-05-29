@@ -19,7 +19,17 @@
                     FontAttributes="Bold"
                     TextColor="White"
                     TextTransform="Uppercase"
-                    Command="{Binding LoginCommand}"
+                    Clicked="Button_Clicked"
+                    CornerRadius="50"/>
+
+            <Button Text="Inloggen static" 
+                    BackgroundColor="#3d5377"
+                    BorderColor="#3d5377"
+                    BorderWidth="0"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    TextTransform="Uppercase"
+                    Clicked="Button_Clicked1"
                     CornerRadius="50"/>
         </VerticalStackLayout>
        

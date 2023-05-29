@@ -17,7 +17,10 @@ namespace OfficeReserveApp.MVVM.ViewModel
     {
         public LoginRequestModel LoginRequest { get; set; } = new LoginRequestModel();
 
-        public ICommand LoginCommand => new Command(() => { Login(LoginRequest); });
+        public void LoginAction()
+        {
+            Login(LoginRequest);
+        }
 
     }
 }
