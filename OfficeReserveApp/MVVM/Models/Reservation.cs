@@ -12,7 +12,7 @@ namespace OfficeReserveApp.MVVM.Models
     public class Reservation
     {
 
-        private DateTime endTime { get; set; }
+        public DateTime endTime { get; set; }
 
         public DateTime startTime { get; set; }
 

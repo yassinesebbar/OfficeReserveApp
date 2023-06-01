@@ -16,6 +16,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("Roboto-Black.ttf", "Strong");
                 fonts.AddFont("LibreFranklin-Regular.ttf", "Regular");
+                fonts.AddFont("fa-regular-400.ttf", "Icons");
+                fonts.AddFont("fa-solid-900.ttf", "IconsSolid");
             });
 
 

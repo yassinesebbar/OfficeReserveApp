@@ -4,7 +4,6 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:OfficeReserveApp.MVVM.Views"
-    xmlns:local="clr-namespace:OfficeReserveApp"
     Shell.NavBarIsVisible="False"
     Shell.FlyoutBehavior="Flyout"
     x:Name="Shell">
@@ -13,41 +12,42 @@
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate views:LoginPage}"
-        Route="LoginPage"
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False"/>
+        Route="LoginPage"/>
 
-    <TabBar FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="Medewerker">
-            <ShellContent
-                Title="Flexplek"
-                ContentTemplate="{DataTemplate views:OfficeReservationOverviewPage}"
-                Route="OfficeReservationOverviewPage" />
+    <TabBar>
 
-            <ShellContent
+        <ShellContent
+            Icon="officechair.png"
+            Title="Flexplek"
+            ContentTemplate="{DataTemplate views:OfficeReservationOverviewPage}"
+            Route="OfficeReservationOverviewPage" />
+       
+        <ShellContent
+                Icon="boardmeeting.png"
                 Title="Ruimte"
                 ContentTemplate="{DataTemplate views:ConferenceReservationOverviewPage}"
                 Route="ConferenceReservationOverviewPage" />
 
-            <ShellContent
-                Title="Profiel"
-                ContentTemplate="{DataTemplate views:ProfileOverviewPage}"
-                Route="ProfileOverviewPage" />
-        </Tab>
+        <ShellContent
+                    Icon="user.png"
+                    Title="Profiel"
+                    ContentTemplate="{DataTemplate views:ProfileOverviewPage}"
+                    Route="ProfileOverviewPage" />
     </TabBar>
 
-    <TabBar FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="OfficeManager">
-            <ShellContent
-                Title="Kantoor"
-                ContentTemplate="{DataTemplate views:OfficeManagementOverviewPage}"
-                Route="OfficeManagementOverviewPage" />
+    <TabBar>
+        
+        <ShellContent
+            Icon="officebuilding.png"
+            Title="Kantoor"
+            ContentTemplate="{DataTemplate views:OfficeManagementOverviewPage}"
+            Route="OfficeManagementOverviewPage" />
 
-            <ShellContent
-                Title="Profiel"
-                ContentTemplate="{DataTemplate views:ProfileOverviewPage}"
-                Route="ProfileOverviewPage" />
-        </Tab>
+        <ShellContent
+            Icon="user.png"
+            Title="Profiel"
+            ContentTemplate="{DataTemplate views:ProfileOverviewPage}"
+            Route="ProfileOverviewPage" />
     </TabBar>
 
 </Shell>

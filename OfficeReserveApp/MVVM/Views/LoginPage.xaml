@@ -22,7 +22,9 @@
                     Clicked="Button_Clicked"
                     CornerRadius="50"/>
 
-            <Button Text="Inloggen static" 
+            <Button Text="Inloggen static medewerker" 
+                    Margin="5"
+                    Padding="5"
                     BackgroundColor="#3d5377"
                     BorderColor="#3d5377"
                     BorderWidth="0"
@@ -30,6 +32,18 @@
                     TextColor="White"
                     TextTransform="Uppercase"
                     Clicked="Button_Clicked1"
+                    CornerRadius="50"/>
+
+
+            <Button Text="Inloggen static office manager" 
+                    
+                    BackgroundColor="#3d5377"
+                    BorderColor="#3d5377"
+                    BorderWidth="0"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    TextTransform="Uppercase"
+                    Clicked="Button_Clicked2"
                     CornerRadius="50"/>
         </VerticalStackLayout>
        

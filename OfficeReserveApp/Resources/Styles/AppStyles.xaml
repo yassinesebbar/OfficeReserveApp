@@ -3,8 +3,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
 
+
     <Color x:Key="MainColor">#3d5377</Color>
     <Color x:Key="SecondaryColor">#bcd433</Color>
+    <Color x:Key="WhiteOpacity">#33c7c9c9</Color>
 
     <Style TargetType="Grid">
         <Setter Property="ColumnSpacing" Value="0" />
@@ -12,8 +14,7 @@
     </Style>
 
     <Style Class="TopRectangle" TargetType="RoundRectangle">
-        <Setter Property="Margin" Value="-5" />
-        <Setter Property="CornerRadius" Value="0,0,25,25" />
+        <Setter Property="Margin" Value="-01,-01,-01,-20" />
         <Setter Property="Fill" Value="{StaticResource MainColor}" />
     </Style>
 
@@ -22,8 +23,9 @@
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
-    <Style TargetType="Label">
-        <Setter Property="FontFamily" Value="Regular" />
+
+    <Style Class="Icon" TargetType="Label">
+        <Setter Property="FontFamily" Value="FaBrands" />
     </Style>
 
     <Style Class="HeaderTitle" TargetType="Label">
@@ -43,14 +45,14 @@
         x:Key="shadow"
         Brush="{StaticResource SecondaryColor}"
         Opacity="0.6"
-        Radius="15"
-        Offset="0,15" />
+        Radius="5"
+        Offset="0,1" />
 
     <Style Class="BalanceRectangle" TargetType="RoundRectangle">
-        <Setter Property="CornerRadius" Value="10" />
-        <Setter Property="Fill" Value="{StaticResource White}" />
+        <Setter Property="Margin" Value="-15" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Fill" Value="{StaticResource WhiteOpacity}" />
         <Setter Property="StrokeThickness" Value="2" />
-        <Setter Property="Shadow" Value="{StaticResource shadow}" />
     </Style>
 
     <Style
@@ -58,6 +60,13 @@
         Class="Padding25"
         TargetType="Layout">
         <Setter Property="Padding" Value="25" />
+    </Style>
+
+    <Style
+        ApplyToDerivedTypes="True"
+        Class="Padding10"
+        TargetType="Layout">
+        <Setter Property="Padding" Value="10" />
     </Style>
     <Style
         ApplyToDerivedTypes="True"
@@ -107,22 +116,14 @@
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
-    <EllipseGeometry
-        x:Key="circle"
-        Center="50,50"
-        RadiusX="30"
-        RadiusY="30" />
 
     <Style Class="CircularButton" TargetType="Button">
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="FontSize" Value="Large" />
-        <Setter Property="HeightRequest" Value="100" />
-        <Setter Property="WidthRequest" Value="100" />
-        <Setter Property="Margin" Value="0,0,0,-35" />
-        <Setter Property="VerticalOptions" Value="End" />
-        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="WidthRequest" Value="50" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="CornerRadius" Value="5" />
         <Setter Property="BackgroundColor" Value="{StaticResource MainColor}" />
-        <Setter Property="Clip" Value="{StaticResource circle}" />
     </Style>
 
     <Style Class="NoDataText" TargetType="Label">
@@ -131,11 +132,27 @@
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
-    <Style
-        ApplyToDerivedTypes="True"
-        Class="RedControl"
-        TargetType="View">
-        <Setter Property="BackgroundColor" Value="DarkRed" />
+
+    <Style TargetType="TabbedPage">
+        <Setter Property="BarBackgroundColor" Value="{StaticResource MainColor}" />
+        <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+        <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
+    </Style>
+
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource MainColor}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource SecondaryColor}" />
+    </Style>
+
+    <Style x:Key="card" TargetType="Frame">
+        <Setter Property="Padding" Value="0,10,0,10"/>
+        <Setter Property="BackgroundColor" Value="#1Ac7c9c9"/>
+        <Setter Property="BorderColor" Value="Transparent"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="HeightRequest" Value="150"/>
+        <Setter Property="WidthRequest" Value="100"/>
+        <Setter Property="Opacity" Value=".1"/>
     </Style>
 
 </ResourceDictionary>

@@ -1,5 +1,7 @@
-using Javax.Security.Auth;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using OfficeReserveApp.MVVM.ViewModels;
+
 
 namespace OfficeReserveApp.MVVM.Views;
 
@@ -15,5 +17,6 @@ public partial class OfficeReservationOverviewPage : ContentPage
         OfficeReservationOverviewModel.GetMyOfficeReservations();
 		OfficeReservationOverviewModel.GetDailyAvailability();
 
+		
     }
 }

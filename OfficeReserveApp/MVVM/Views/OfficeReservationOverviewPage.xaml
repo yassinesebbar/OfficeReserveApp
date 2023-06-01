@@ -3,35 +3,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               xmlns:local="clr-namespace:OfficeReserveApp.MVVM.ViewModels"
              x:Class="OfficeReserveApp.MVVM.Views.OfficeReservationOverviewPage"
+             NavigationPage.HasNavigationBar="False"
              Title="OfficeReservationOverviewPage">
-   
-    <Grid RowDefinitions=".15*,.15*,.15*,.55*">
-        <RoundRectangle Grid.RowSpan="2" StyleClass="TopRectangle"/>
-        <VerticalStackLayout StyleClass="Header">
-            <Label StyleClass="HeaderSubTitle" Text="{Binding CurrentUser.name}"/>
-        </VerticalStackLayout>
 
-        <Grid Grid.Row="1"
-              Grid.RowSpan="2"
-              StyleClass="BalanceGrid">
-            <RoundRectangle StyleClass="BalanceRectangle"/>
-            <Grid ColumnDefinitions="*,*"
-                  RowDefinitions=".333*,.333*,.333*"
-                  StyleClass="Padding25">
+    <Grid RowDefinitions=".065*,.175*,.20*,.55*">
+        <RoundRectangle StyleClass="TopRectangle"/>
+        <Image HorizontalOptions="CenterAndExpand" Source="edenbluelogo.png" WidthRequest="80"/>
+        <Frame Margin="-5" BorderColor="White" Grid.Row="1" Grid.RowSpan="2"  CornerRadius="29">
+            <Grid  RowDefinitions=".25*,.25*"  BackgroundColor="white" >
+                <CollectionView ItemsSource="{Binding OfficeDailyAvailabilities}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                            <Frame>
+                                <VerticalStackLayout>
+                                    
+                                    <Label TextTransform="Uppercase" Text="{Binding Day, StringFormat='{0:ddd}'}" />
+                                    <Label Text="{Binding Day, StringFormat='{0:dd}'}"/>
+                                    <Label Text="{Binding Day, StringFormat='{0:MMM}'}"/>
 
+                                    <Label HorizontalOptions="CenterAndExpand" Margin="0,10,0,0" TextColor="DarkOrange" FontFamily="Icons" Text="&#xf133;" FontSize="20" />
+                                    
+                                </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-            </Grid>
+                <Grid Padding="10" Grid.Row="1" ColumnDefinitions=".75*,.25*" VerticalOptions="CenterAndExpand">
+                    <HorizontalStackLayout>
+                            <Label Padding="5"  VerticalOptions="CenterAndExpand"  TextColor="Black" FontFamily="Icons" Text="&#xf017;" FontSize="30" />
+                            <TimePicker x:Name="TineStart" FontSize="26" VerticalOptions="Center" />
+
+                            <Label  VerticalOptions="CenterAndExpand" Margin="10" TextColor="Black" FontFamily="IconsSolid" Text="&#xF0da;" FontSize="15" />
+                            <TimePicker  x:Name="TineEnd" FontSize="26" VerticalOptions="Center"/>
+
+                    </HorizontalStackLayout>
+                    <Button 
+                        Grid.Column="1"
+                        StyleClass="CircularButton"
+                        Text="+"
+                        x:Name="AddTransaction"
+                        HorizontalOptions="EndAndExpand"/>
+                </Grid>
         </Grid>
-        <Button 
-            Grid.Row="2"
-            StyleClass="CircularButton"
-            Text="+"
-            x:Name="AddTransaction"/>
+        </Frame>
 
-        <Grid Grid.Row="3"
+
+
+
+
+        <Grid Grid.Row="4"
               RowDefinitions=".1*,.9*"
-              StyleClass="Margin15">
-            <Label Text="Reserveringen"/>
+              StyleClass="Margin15"
+              BackgroundColor="#1Ac7c9c9"
+              Margin="-5">
+            <Label StyleClass="StrongMediumTitle" Padding="10" Text="Reserveringen"/>
             <CollectionView Grid.Row="1"
                             EmptyView="No Data"
                             ItemsSource="{Binding MyOfficeReservations}">
@@ -63,7 +92,6 @@
                                 StyleClass="SmallFont"
                                 Text="{Binding OfficeName}"/>
                             
-                            <Label Text=""/>
                             <Label
                                 Grid.RowSpan="2"
                                 Grid.Column="1"

@@ -49,10 +49,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\fa-brands-400.ttf" />
+	  <None Remove="Resources\Fonts\fa-regular-400.ttf" />
+	  <None Remove="Resources\Fonts\fa-solid-900.ttf" />
+	  <None Remove="Resources\Fonts\fontello.ttf" />
 	  <None Remove="Resources\Fonts\LibreFranklin-Regular.ttf" />
 	  <None Remove="Resources\Fonts\Roboto-Black.ttf" />
+	  <None Remove="Resources\Images\add.png" />
+	  <None Remove="Resources\Images\boardmeeting.png" />
+	  <None Remove="Resources\Images\calendar.png" />
+	  <None Remove="Resources\Images\calendardays.svg" />
+	  <None Remove="Resources\Images\edenbluelogo.png" />
 	  <None Remove="Resources\Images\EdenWhiteLogo.png" />
+	  <None Remove="Resources\Images\officebuilding.png" />
+	  <None Remove="Resources\Images\officechair.png" />
 	  <None Remove="Resources\Images\trash.png" />
+	  <None Remove="Resources\Images\user.png" />
 	</ItemGroup>
 
 	<ItemGroup>
