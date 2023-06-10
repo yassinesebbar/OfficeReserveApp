@@ -29,8 +29,8 @@ namespace OfficeReserveApp.Services
                     var data = await JsonSerializer.DeserializeAsync<ImportUser>(responseStream);
 
                     User = new User{
-                        name = data.name,
-                        lastName = data.lastname,
+                        Username = data.username,
+                        Fullname = data.fullname,
                         Rol = (Rol) data.rol
                     };
                 }

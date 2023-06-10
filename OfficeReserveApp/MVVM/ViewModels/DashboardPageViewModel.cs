@@ -13,7 +13,6 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
         }
 
-        public ICommand LogoutCommand => new Command(() => { Logout(); });
 
         
     }

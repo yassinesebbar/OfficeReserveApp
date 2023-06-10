@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Xml.Linq;
 
 namespace OfficeReserveApp.MVVM.ViewModels
@@ -16,9 +17,12 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
     public class BaseViewModel
     {
+        public User CurrentUser { get; private set; }
         private Image LoadingImage;
         protected AuthenticationService AuthenticationService { get; private set; }
         protected HttpClient Client { get; private set; } = App.client;
+        public ICommand LogoutCommand => new Command(() => { Logout(); });
+
         public Boolean IsLoading
         {
             get {
@@ -31,6 +35,8 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             AuthenticationService = App.authenticationService;
             LoadingImage= image;
+            CurrentUser = AuthenticationService.User;
+
         }
 
         public void AddToLoadingqueue(string process)

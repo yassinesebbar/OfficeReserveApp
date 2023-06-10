@@ -18,7 +18,6 @@ namespace OfficeReserveApp.MVVM.ViewModels
         public List<Reservation> MyOfficeReservations { get; set; }
         public List<DailyAvailability> OfficeDailyAvailabilities { get; set; }
         private ReservationService ReservationService { get; set; }
-        public User CurrentUser { get; private set; }
         public DailyAvailability SelectedDay { get; set; }
 
         public TimeSpan StartTimeSpan { get; set; }
@@ -40,7 +39,6 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             MyOfficeReservations = new List<Reservation>();
             OfficeDailyAvailabilities = new List<DailyAvailability>();
-            CurrentUser = AuthenticationService.User;
             ReservationService = new ReservationService();
 
             DeleteOfficeReservationCommand = new Command((object obj) => { DeleteOfficeReservation(obj); });

@@ -8,8 +8,8 @@ namespace OfficeReserveApp.ImportModels
 {
     public class ImportUser
     {
-        public string name { get; set; }
-        public string lastname { get; set; }
+        public string username { get; set; }
+        public string fullname { get; set; }
         public string email { get; set; }
         public int rol { get; set; }
     }

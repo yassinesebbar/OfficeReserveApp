@@ -85,7 +85,7 @@
                                CharacterSpacing="2" 
                                FontFamily="Icons" 
                                Text="&#xf017;" 
-                               FontSize="30" />
+                               FontSize="25" />
 
                         <TimePicker  Time="{Binding StartTimeSpan}" 
                                      FontAttributes="Bold" 
@@ -155,7 +155,7 @@
                     </DataTemplate>
                 </CollectionView.EmptyViewTemplate>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate >
+                    <DataTemplate>
                         <SwipeView>
                             <SwipeView.LeftItems>
                                 <SwipeItems>
@@ -167,22 +167,22 @@
 
 
                                         </SwipeItemView.GestureRecognizers>
-                                        <Border WidthRequest="60" Margin="0,0,0,0" BackgroundColor="#08fc0505" Stroke="#80fc0505">
+                                        <Border WidthRequest="60" Margin="0,2,-5,10" BackgroundColor="#08fc0505" Stroke="#80fc0505">
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="2,2,2,2" />
                                             </Border.StrokeShape>
                                             <StackLayout Margin="0"
                                                         WidthRequest="25" >
-                                                <Label TextColor="#a6fc0505" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" FontFamily="IconsSolid" Text="&#xf2ed;" FontSize="24"/>
+                                                <Label TextColor="#a6fc0505" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" FontFamily="IconsSolid" Text="&#xf2ed;" FontSize="21"/>
                                             </StackLayout>
                                         </Border>
                                     </SwipeItemView>
                                 </SwipeItems>
                                 </SwipeView.LeftItems>
                                 
-                                <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+                                <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" RowSpacing="-3">
 
-                                <Label FontSize="17" StyleClass="StrongMediumTitle" Text="{Binding Date, StringFormat='{0:dddd dd MMM}'}"/>
+                                <Label FontSize="14" TextTransform="Uppercase" StyleClass="StrongMediumTitle" Text="{Binding Date, StringFormat='{0:dddd dd MMM}'}"/>
                                     <Label
                                     Grid.Row="1"
                                     StyleClass="SmallFont"

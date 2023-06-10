@@ -15,9 +15,8 @@ namespace OfficeReserveApp.MVVM.Models
 
     public class User
     {
-        public DateTime lastActive { get; set; }
-        public string name { get; set; }
-        public string lastName { get; set; }
+        public string Username { get; set; }
+        public string Fullname { get; set; }
         public Rol Rol { get; set; }
     }
 
