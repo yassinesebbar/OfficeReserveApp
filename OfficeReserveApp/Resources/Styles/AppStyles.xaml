@@ -5,6 +5,7 @@
 
 
     <Color x:Key="MainColor">#3d5377</Color>
+    <Color x:Key="MainColor50Opac">#7a3d5377</Color>
     <Color x:Key="SecondaryColor">#bcd433</Color>
     <Color x:Key="WhiteOpacity">#33c7c9c9</Color>
 
@@ -14,7 +15,7 @@
     </Style>
 
     <Style Class="TopRectangle" TargetType="RoundRectangle">
-        <Setter Property="Margin" Value="-01,-01,-01,-20" />
+        <Setter Property="Margin" Value="-01,-01,-01,-10" />
         <Setter Property="Fill" Value="{StaticResource MainColor}" />
     </Style>
 
@@ -96,7 +97,7 @@
     <Style Class="StrongMediumTitle" TargetType="Label">
         <Setter Property="FontFamily" Value="Strong" />
         <Setter Property="FontSize" Value="Small" />
-        <Setter Property="TextColor" Value="{StaticResource Black}" />
+        <Setter Property="TextColor" Value="#080808" />
     </Style>
 
     <Style Class="StrongSubTitle" TargetType="Label">
@@ -119,11 +120,12 @@
 
     <Style Class="CircularButton" TargetType="Button">
         <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="FontSize" Value="Large" />
-        <Setter Property="WidthRequest" Value="50" />
-        <Setter Property="HeightRequest" Value="50" />
-        <Setter Property="CornerRadius" Value="5" />
-        <Setter Property="BackgroundColor" Value="{StaticResource MainColor}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="WidthRequest" Value="35" />
+        <Setter Property="HeightRequest" Value="35" />
+        <Setter Property="CornerRadius" Value="1" />
+        <Setter Property="BackgroundColor" Value="#f73d5377" />
     </Style>
 
     <Style Class="NoDataText" TargetType="Label">

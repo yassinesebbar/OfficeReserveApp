@@ -61,10 +61,12 @@
 	  <None Remove="Resources\Images\calendardays.svg" />
 	  <None Remove="Resources\Images\edenbluelogo.png" />
 	  <None Remove="Resources\Images\EdenWhiteLogo.png" />
+	  <None Remove="Resources\Images\Loading.gif" />
 	  <None Remove="Resources\Images\officebuilding.png" />
 	  <None Remove="Resources\Images\officechair.png" />
 	  <None Remove="Resources\Images\trash.png" />
 	  <None Remove="Resources\Images\user.png" />
+	  <None Remove="Resources\Raw\Loading.gif" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -108,5 +110,7 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadUnhandledDeviceExceptionOfficeReserveAppHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

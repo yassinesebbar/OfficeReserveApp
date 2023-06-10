@@ -1,68 +1,146 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:local="clr-namespace:OfficeReserveApp.MVVM.ViewModels"
              x:Class="OfficeReserveApp.MVVM.Views.OfficeReservationOverviewPage"
+             xmlns:local="clr-namespace:OfficeReserveApp.MVVM.ViewModels"
+             xmlns:converters="clr-namespace:OfficeReserveApp.Converters"
              NavigationPage.HasNavigationBar="False"
              Title="OfficeReservationOverviewPage">
 
-    <Grid RowDefinitions=".065*,.175*,.20*,.55*">
-        <RoundRectangle StyleClass="TopRectangle"/>
-        <Image HorizontalOptions="CenterAndExpand" Source="edenbluelogo.png" WidthRequest="80"/>
-        <Frame Margin="-5" BorderColor="White" Grid.Row="1" Grid.RowSpan="2"  CornerRadius="29">
-            <Grid  RowDefinitions=".25*,.25*"  BackgroundColor="white" >
-                <CollectionView ItemsSource="{Binding OfficeDailyAvailabilities}">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                            <Frame>
-                                <VerticalStackLayout>
-                                    
-                                    <Label TextTransform="Uppercase" Text="{Binding Day, StringFormat='{0:ddd}'}" />
-                                    <Label Text="{Binding Day, StringFormat='{0:dd}'}"/>
-                                    <Label Text="{Binding Day, StringFormat='{0:MMM}'}"/>
+    <ContentPage.Resources>
+        <converters:StatusAvailabilityToColor x:Key="StatusAvailabilityToColor"/>
+    </ContentPage.Resources>
 
-                                    <Label HorizontalOptions="CenterAndExpand" Margin="0,10,0,0" TextColor="DarkOrange" FontFamily="Icons" Text="&#xf133;" FontSize="20" />
-                                    
-                                </VerticalStackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+    <Grid RowDefinitions=".07*,.10*,.15*,.60*">
+        <RoundRectangle  StyleClass="TopRectangle"/>
+        <Image Margin="0" HorizontalOptions="CenterAndExpand" Source="edenbluelogo.png" WidthRequest="80"/>
+        <Frame Margin="-8,-1,-8,0" BorderColor="White" Grid.Row="1" Grid.RowSpan="2"  CornerRadius="29">
+            <Grid  RowDefinitions=".35*,.23*"  BackgroundColor="white" >
+                <CollectionView ItemsSource="{Binding OfficeDailyAvailabilities}"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedDay}"
+                                SelectionChanged="DaySelectionChanged"
+                                x:Name="OfficeDailyAvailabilitiesView">
 
-                <Grid Padding="10" Grid.Row="1" ColumnDefinitions=".75*,.25*" VerticalOptions="CenterAndExpand">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid BackgroundColor="#66c7c9c9" Padding="15" >
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal"></VisualState>
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource MainColor50Opac}"></Setter>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <StackLayout>
+                                    <Label HorizontalOptions="CenterAndExpand"  
+                                           FontSize="15" 
+                                           FontAttributes="Bold" 
+                                           TextTransform="Uppercase" 
+                                           Text="{Binding Day, StringFormat='{0:ddd}'}" />
+                                    
+                                    <HorizontalStackLayout>
+                                        
+                                        <Label VerticalTextAlignment="Center" 
+                                               Margin="0,0,5,0" 
+                                               HorizontalOptions="CenterAndExpand" 
+                                               FontFamily="Regular" 
+                                               FontSize="15"  
+                                               Text="{Binding Day, StringFormat='{0:dd}'}"/>
+                                        
+                                        <Label VerticalTextAlignment="Center" 
+                                               HorizontalOptions="CenterAndExpand" 
+                                               FontFamily="Regular" 
+                                               FontSize="14" 
+                                               Text="{Binding Day, StringFormat='{0:MMM}'}"/>
+                                        
+                                    </HorizontalStackLayout>
+
+                                    <Label HorizontalOptions="CenterAndExpand" 
+                                           Margin="0,4,0,0" 
+                                           TextColor="{Binding Status, Converter={StaticResource StatusAvailabilityToColor}}" 
+                                           FontFamily="Icons" 
+                                           Text="&#xf133;" 
+                                           FontSize="25" />
+                                    
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+                <Grid Padding="0,7,0,0" Grid.Row="1" ColumnDefinitions=".75*,.25*"  VerticalOptions="CenterAndExpand">
                     <HorizontalStackLayout>
-                            <Label Padding="5"  VerticalOptions="CenterAndExpand"  TextColor="Black" FontFamily="Icons" Text="&#xf017;" FontSize="30" />
-                            <TimePicker x:Name="TineStart" FontSize="26" VerticalOptions="Center" />
+                        <Label 
+                               HorizontalTextAlignment="Center" 
+                               VerticalTextAlignment="Center"  
+                               TextColor="#2e4366" 
+                               CharacterSpacing="2" 
+                               FontFamily="Icons" 
+                               Text="&#xf017;" 
+                               FontSize="30" />
 
-                            <Label  VerticalOptions="CenterAndExpand" Margin="10" TextColor="Black" FontFamily="IconsSolid" Text="&#xF0da;" FontSize="15" />
-                            <TimePicker  x:Name="TineEnd" FontSize="26" VerticalOptions="Center"/>
+                        <TimePicker  Time="{Binding StartTimeSpan}" 
+                                     FontAttributes="Bold" 
+                                     TextColor="#2e4366" 
+                                     x:Name="TimeStart" 
+                                     FontFamily="Regular" 
+                                     Margin="3,0,0,0" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     FontSize="30" 
+                                     VerticalOptions="CenterAndExpand" />
+
+                        <Label TextColor="#2e4366"  
+                               VerticalOptions="CenterAndExpand" 
+                               Margin="10"  
+                               FontFamily="IconsSolid" 
+                               Text="&#xF0da;" 
+                               FontSize="15" />
+
+                        <TimePicker Time="{Binding EndTimeSpan}" 
+                                    FontAttributes="Bold" 
+                                    TextColor="#2e4366"  
+                                    x:Name="TimeEnd" 
+                                    FontFamily="Regular" 
+                                    FontSize="30" 
+                                    VerticalOptions="CenterAndExpand"/>
 
                     </HorizontalStackLayout>
                     <Button 
-                        Grid.Column="1"
-                        StyleClass="CircularButton"
-                        Text="+"
-                        x:Name="AddTransaction"
-                        HorizontalOptions="EndAndExpand"/>
+                            Command="{Binding CreateReservationCommand}"
+                            FontFamily="IconsSolid"
+                            VerticalOptions="CenterAndExpand"
+                            StyleClass="CircularButton"
+                            Text="&#x2b;"
+                            x:Name="AddTransaction"
+                            Margin="30,4,0,0"
+                        IsEnabled="{Binding ReadyToCreateReservation}"
+                        Grid.Column="1"/>
                 </Grid>
-        </Grid>
+            </Grid>
         </Frame>
-
-
-
-
-
         <Grid Grid.Row="4"
               RowDefinitions=".1*,.9*"
-              StyleClass="Margin15"
               BackgroundColor="#1Ac7c9c9"
-              Margin="-5">
-            <Label StyleClass="StrongMediumTitle" Padding="10" Text="Reserveringen"/>
+              Margin="0,0,0,0">
+            <Grid Margin="15,5,20,0" ColumnDefinitions="4*,*">
+                <Label StyleClass="StrongMediumTitle" VerticalTextAlignment="Center" FontSize="18" TextColor="#2e4366" TextTransform="Uppercase" Padding="5,5,5,5" Text="Flexplek Reserveringen"/>
+                <Image x:Name="loadingImg" Grid.Column="1" HorizontalOptions="End" WidthRequest="30" IsAnimationPlaying="{Binding IsLoading}" Source="loading">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UpdateViewCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
             <CollectionView Grid.Row="1"
                             EmptyView="No Data"
+                            Margin="30,20,30,0"
                             ItemsSource="{Binding MyOfficeReservations}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="15"
@@ -77,28 +155,52 @@
                     </DataTemplate>
                 </CollectionView.EmptyViewTemplate>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate >
                         <SwipeView>
                             <SwipeView.LeftItems>
                                 <SwipeItems>
-                                    <SwipeItem  IconImageSource="trash.png"
-                                           BackgroundColor="#B3800020"/>
+                                    <SwipeItemView >
+                                        <SwipeItemView.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                    CommandParameter="{Binding .}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:OfficeReservationOverviewModel}}, Path=DeleteOfficeReservationCommand}"/>
+
+
+                                        </SwipeItemView.GestureRecognizers>
+                                        <Border WidthRequest="60" Margin="0,0,0,0" BackgroundColor="#08fc0505" Stroke="#80fc0505">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="2,2,2,2" />
+                                            </Border.StrokeShape>
+                                            <StackLayout Margin="0"
+                                                        WidthRequest="25" >
+                                                <Label TextColor="#a6fc0505" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" FontFamily="IconsSolid" Text="&#xf2ed;" FontSize="24"/>
+                                            </StackLayout>
+                                        </Border>
+                                    </SwipeItemView>
                                 </SwipeItems>
-                            </SwipeView.LeftItems>
-                            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
-                            <Label StyleClass="StrongMediumTitle" Text="{Binding date, StringFormat='{0:dddd dd MMMM}'}"/>
-                            <Label
-                                Grid.Row="1"
-                                StyleClass="SmallFont"
-                                Text="{Binding OfficeName}"/>
-                            
-                            <Label
-                                Grid.RowSpan="2"
-                                Grid.Column="1"
-                                StyleClass="ListAmount"
-                                Text="{Binding timeFromTo}"/>
-                        </Grid>
-                        </SwipeView>
+                                </SwipeView.LeftItems>
+                                
+                                <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+
+                                <Label FontSize="17" StyleClass="StrongMediumTitle" Text="{Binding Date, StringFormat='{0:dddd dd MMM}'}"/>
+                                    <Label
+                                    Grid.Row="1"
+                                    StyleClass="SmallFont"
+                                    Text="{Binding OfficeName}"/>
+
+                                    <Label
+                                    FontSize="24"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                        Grid.ColumnSpan="2"
+                                        HorizontalOptions="Start"
+                                        
+                                    StyleClass="ListAmount"
+                                    Text="{Binding timeFromTo}"/>
+                                </Grid>
+                            </SwipeView>
+
+                        
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

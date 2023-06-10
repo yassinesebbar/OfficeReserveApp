@@ -12,31 +12,35 @@ namespace OfficeReserveApp.MVVM.Models
     public class Reservation
     {
 
-        public DateTime endTime { get; set; }
+        public DateTime EndTime { get; set; }
 
-        public DateTime startTime { get; set; }
+        public DateTime StartTime { get; set; }
 
-        public DateTime date { get; set; }
-
-        public string Date
+        public DateTime Date { get; set; }
+        public int ReservationID { get; set; }
+        public string date
         {
             set
             {
-                date = DateTime.Parse(value);
+                Date = DateTime.Parse(value);
+            }
+            get
+            {
+                return Date.ToString("yyyy-MM-dd HH:mm:ss");
             }
         }
-        public string StartTime
+        public string startTime
         {
             set
             {
-                startTime = DateTime.Parse(value);
+                StartTime = DateTime.Parse(value);
             }
         }
-        public string EndTime
+        public string endTime
         {
             set
             {
-                endTime = DateTime.Parse(value);
+                EndTime = DateTime.Parse(value);
             }
         }
         public string OfficeName { get; set; }
@@ -45,7 +49,7 @@ namespace OfficeReserveApp.MVVM.Models
         {
             get
             {
-                return startTime.ToString("HH:mm") + " - " + endTime.ToString("HH:mm");
+                return StartTime.ToString("HH:mm") + " - " + EndTime.ToString("HH:mm");
             }
         }
     }

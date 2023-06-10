@@ -16,7 +16,7 @@ namespace OfficeReserveApp.MVVM.Models
 
     public class DailyAvailability
     {
-        public StatusAvailability AvailabilityStatus { get; set; }
+        public StatusAvailability Status { get; set; }
         public DateTime Day { get; set; }
     }
 }

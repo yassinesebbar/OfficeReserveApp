@@ -1,40 +1,65 @@
 ﻿using OfficeReserveApp.MVVM.Models;
 using OfficeReserveApp.MVVM.Views;
 using OfficeReserveApp.Services;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace OfficeReserveApp.MVVM.ViewModels
 {
 
+    [AddINotifyPropertyChangedInterface]
 
     public class BaseViewModel
     {
+        private Image LoadingImage;
         protected AuthenticationService AuthenticationService { get; private set; }
         protected HttpClient Client { get; private set; } = App.client;
-
-
-        public BaseViewModel()
+        public Boolean IsLoading
         {
-            AuthenticationService= App.authenticationService;
+            get {
+                return Loadingqueue.Count > 0;
+            } 
+        }
+        private List<string> Loadingqueue { get;  set; } = new List<string>();
+
+        public BaseViewModel(Image image = null)
+        {
+            AuthenticationService = App.authenticationService;
+            LoadingImage= image;
+        }
+
+        public void AddToLoadingqueue(string process)
+        {
+            Loadingqueue.Add(process);
+            LoadingImage.IsAnimationPlaying = IsLoading;
+        }
+
+        public void RemoveFromLoadingqueue(string process)
+        {
+            Loadingqueue.Remove(process);
+            LoadingImage.IsAnimationPlaying = IsLoading;
+        }
+
+        public Boolean IsAlreadyLoading(string process)
+        {
+            return Loadingqueue.Contains(process);
         }
 
         public void Logout()
         {
             AuthenticationService.Logout();
-
-            RouteBasedOnUser();
-
+            var app = Application.Current as OfficeReserveApp.App;
+            app.MainPage = new AppShell();
         }
 
-        public async void Login(LoginRequestModel loginRequest) 
+        public async void Login(LoginRequestModel loginRequest)
         {
-
             await AuthenticationService.Login(loginRequest);
-
             RouteBasedOnUser();
         }
 
@@ -44,8 +69,9 @@ namespace OfficeReserveApp.MVVM.ViewModels
             {
                 if (AuthenticationService.User.Rol == Rol.Medewerker)
                 {
-                     Shell.Current.GoToAsync($"//{nameof(OfficeReservationOverviewPage)}");
-                }else if (AuthenticationService.User.Rol == Rol.Officemanager)
+                    Shell.Current.GoToAsync($"//{nameof(OfficeReservationOverviewPage)}");
+                }
+                else if (AuthenticationService.User.Rol == Rol.Officemanager)
                 {
                     Shell.Current.GoToAsync($"//{nameof(OfficeManagementOverviewPage)}");
                 }

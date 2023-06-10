@@ -9,6 +9,10 @@ namespace OfficeReserveApp.MVVM.ViewModels
 {
     internal class DashboardPageViewModel : BaseViewModel
     {
+        public DashboardPageViewModel() : base()
+        {
+        }
+
         public ICommand LogoutCommand => new Command(() => { Logout(); });
 
         
