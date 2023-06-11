@@ -17,7 +17,7 @@ public partial class OfficeReservationOverviewPage : ContentPage
         OfficeReservationOverviewModel = new OfficeReservationOverviewModel((Image)loadingImg);
         BindingContext = OfficeReservationOverviewModel;
 
-        OfficeReservationOverviewModel.UpdateView();
+        OfficeReservationOverviewModel.UpdateData();
       
     }
 

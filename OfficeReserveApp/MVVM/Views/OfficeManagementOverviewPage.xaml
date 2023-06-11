@@ -2,8 +2,213 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OfficeReserveApp.MVVM.Views.OfficeManagementOverviewPage"
+             xmlns:converters="clr-namespace:OfficeReserveApp.Converters"
+             xmlns:local="clr-namespace:OfficeReserveApp.MVVM.ViewModels"
              Title="OfficeManagementOverviewPage"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <converters:StatusAvailabilityToColor x:Key="StatusAvailabilityToColor"/>
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions=".061*,.2*,.55*">
+        <RoundRectangle  StyleClass="TopRectangle"/>
+        <Image Margin="0" HorizontalOptions="CenterAndExpand" Source="edenbluelogo.png" WidthRequest="80"/>
+        <Frame Margin="-8,0,-8,5" BorderColor="White" Grid.Row="1"  CornerRadius="29">
+            <Grid RowSpacing="10"  RowDefinitions=".15*,.5*"  BackgroundColor="white" >
+
+                <Grid ColumnDefinitions="*,.71*,.2*">
+                    <HorizontalStackLayout Spacing="5" Grid.Column="0">
+                        <Label HorizontalOptions="CenterAndExpand" 
+                               
+                               TextColor="{StaticResource SecondaryColor}" 
+                               FontFamily="IconsSolid" 
+                               Text="&#xf1ad;" 
+                               FontSize="20" />
+
+                        <Label  FontSize="18" 
+                                FontAttributes="Bold" 
+                                TextTransform="Uppercase" 
+                                Text="{Binding OfficeInfo.Name}"
+                                Margin="0,-4,0,0"/>
+                        
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5" Grid.Column="1">
+                        <Label HorizontalOptions="CenterAndExpand" 
+                              
+                               TextColor="{StaticResource SecondaryColor}" 
+                               FontFamily="IconsSolid" 
+                               Text="&#xf6c0;" 
+                               FontSize="20" />
+
+                        <Label  FontSize="18" 
+                                FontAttributes="Bold" 
+                                TextTransform="Uppercase" 
+                                Text="{Binding OfficeInfo.AmountWorkSpots}"
+                                Margin="0,-4,0,0"/>
+                    </HorizontalStackLayout>
+
+                    <Label   Grid.Column="2" 
+                             FontSize="22" 
+                             Text="&#xf044;" 
+                             FontFamily="IconsSolid"  
+                             VerticalOptions="Fill" 
+                             Margin="0,-1,0,0"
+                             TextColor="#2e4366">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ChangeOffice_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                           
+                </Grid>
+                
+                <CollectionView ItemsSource="{Binding OfficeDailyAvailabilities}"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedDay}"
+                                x:Name="OfficeDailyAvailabilitiesView"
+                                Grid.Row="1"
+                                SelectionChangedCommand = "{Binding ChangeDailyAvailabilityCommand}">
+                    <CollectionView.EmptyViewTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Label StyleClass="NoDataText"
+                                   Text="Er zijn geen reserveringsdagen"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.EmptyViewTemplate>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid BackgroundColor="#66c7c9c9" Padding="15" >
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal"></VisualState>
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource MainColor50Opac}"></Setter>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <StackLayout>
+                                    <Label HorizontalOptions="CenterAndExpand"  
+                                           FontSize="15" 
+                                           FontAttributes="Bold" 
+                                           TextTransform="Uppercase" 
+                                           Text="{Binding Day, StringFormat='{0:ddd}'}" />
+                                    <HorizontalStackLayout>
+
+                                        <Label VerticalTextAlignment="Center" 
+                                               Margin="0,0,5,0" 
+                                               HorizontalOptions="CenterAndExpand" 
+                                               FontFamily="Regular" 
+                                               FontSize="15"  
+                                               Text="{Binding Day, StringFormat='{0:dd}'}"/>
+
+                                        <Label VerticalTextAlignment="Center" 
+                                               HorizontalOptions="CenterAndExpand" 
+                                               FontFamily="Regular" 
+                                               FontSize="14" 
+                                               Text="{Binding Day, StringFormat='{0:MMM}'}"/>
+
+                                    </HorizontalStackLayout>
+                                    <Label HorizontalOptions="CenterAndExpand" 
+                                           Margin="0,4,0,0" 
+                                           TextColor="{Binding Status, Converter={StaticResource StatusAvailabilityToColor}}" 
+                                           FontFamily="Icons" 
+                                           Text="&#xf133;" 
+                                           FontSize="25" />
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+        </Frame>
+        <Grid Grid.Row="4"
+              RowDefinitions=".1*,.9*"
+              BackgroundColor="#1Ac7c9c9"
+              Margin="0,-10,0,0">
+            <Grid Margin="15,5,20,0" ColumnDefinitions="4*,*">
+                <Label StyleClass="StrongMediumTitle" VerticalTextAlignment="Center" FontSize="18" TextColor="#2e4366" TextTransform="Uppercase" Padding="5,5,5,5" Text="Flexplek Reserveringen"/>
+                <Image x:Name="loadingImg" Grid.Column="1" HorizontalOptions="End" WidthRequest="30" IsAnimationPlaying="{Binding IsLoading}" Source="loading">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UpdateViewCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+            <CollectionView Grid.Row="1"
+                            EmptyView="No Data"
+                            Margin="30,20,30,0"
+                            ItemsSource="{Binding OfficeReservations}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="15"
+                                       Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.EmptyViewTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Label StyleClass="NoDataText"
+                                   Text="Je hebt geen reserveringen"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItemView >
+                                        <SwipeItemView.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                    CommandParameter="{Binding .}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:OfficeManagementOverviewModel}}, Path=DeleteOfficeReservationCommand}"/>
+
+
+                                        </SwipeItemView.GestureRecognizers>
+                                        <Border WidthRequest="60" Margin="0,2,-5,10" BackgroundColor="#08fc0505" Stroke="#80fc0505">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="2,2,2,2" />
+                                            </Border.StrokeShape>
+                                            <StackLayout Margin="0"
+                                                        WidthRequest="25" >
+                                                <Label TextColor="#a6fc0505" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" FontFamily="IconsSolid" Text="&#xf2ed;" FontSize="21"/>
+                                            </StackLayout>
+                                        </Border>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" RowSpacing="-3">
+
+                                <Label FontSize="14" TextTransform="Uppercase" StyleClass="StrongMediumTitle" Text="{Binding ReservationHolder}"/>
+                                <Label
+                                    Grid.Row="1"
+                                    StyleClass="SmallFont"
+                                    Text="{Binding OfficeName}"/>
+
+                                <Label
+                                    FontSize="24"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                        Grid.ColumnSpan="2"
+                                        HorizontalOptions="Start"
+                                        
+                                    StyleClass="ListAmount"
+                                    Text="{Binding timeFromTo}"/>
+                            </Grid>
+                        </SwipeView>
+
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+    </Grid>
 
 </ContentPage>

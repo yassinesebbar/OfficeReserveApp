@@ -43,15 +43,14 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             DeleteOfficeReservationCommand = new Command((object obj) => { DeleteOfficeReservation(obj); });
             CreateReservationCommand = new Command(CreateReservation);
-            UpdateViewCommand = new Command(UpdateView);
+            UpdateViewCommand = new Command(UpdateData);
         }
 
-        public void UpdateView()
+        public void UpdateData()
         {
             GetDailyAvailability();
             GetMyOfficeReservations();
         }
-
 
 
         public async void CreateReservation()
@@ -66,8 +65,9 @@ namespace OfficeReserveApp.MVVM.ViewModels
             NewReservation.Date = SelectedDay.Day;
             if (ReservationIsValid(NewReservation))
             {
-               MyOfficeReservations = await ReservationService.TaskDCreateReservation(NewReservation);
+               MyOfficeReservations = await ReservationService.TaskCreateReservation(NewReservation);
             }
+
             RemoveFromLoadingqueue(process);
         }
 
@@ -78,9 +78,10 @@ namespace OfficeReserveApp.MVVM.ViewModels
             AddToLoadingqueue(process);
 
             Reservation reservation = (Reservation)obj;
-            MyOfficeReservations = await ReservationService.TaskDeleteReservation(reservation);
+            MyOfficeReservations = await ReservationService.TaskDeleteMyReservation(reservation);
 
             RemoveFromLoadingqueue(process);
+
         }
 
         public async void GetMyOfficeReservations()

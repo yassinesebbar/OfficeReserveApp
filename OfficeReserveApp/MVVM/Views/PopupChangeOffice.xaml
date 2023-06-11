@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             x:Class="OfficeReserveApp.MVVM.Views.PopupChangeOffice"
+           CanBeDismissedByTappingOutsideOfPopup="True"
+           Size="200,150"
+          VerticalOptions="Center"
+           Color="Transparent">
+    
+    <Frame BorderColor="{StaticResource SecondaryColor}" Padding="20">
+        <Grid RowDefinitions=".2*,*">
+            <Label HorizontalOptions="End"
+                    FontFamily="IconsSolid" 
+                    Text="&#xf00d;" 
+                    FontSize="20" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ClosePopup_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+
+            <VerticalStackLayout Grid.Row="1">
+                <Label HorizontalOptions="CenterAndExpand" StyleClass="StrongMediumTitle" VerticalTextAlignment="Center" FontSize="20" TextColor="#2e4366" TextTransform="Uppercase" Padding="5,5,5,5" Text="{Binding OfficeInfo.Name}"/>
+
+                <HorizontalStackLayout Spacing="5" >
+                    <Label VerticalOptions="CenterAndExpand"
+                    TextColor="{StaticResource SecondaryColor}" 
+                    FontFamily="IconsSolid" 
+                    Text="&#xf6c0;" 
+                    FontSize="20" />
+
+                    <Entry  FontSize="20" 
+                    VerticalOptions="CenterAndExpand"
+                    FontAttributes="Bold" 
+                    TextTransform="Uppercase" 
+                    Text="{Binding OfficeInfo.AmountWorkSpots}"
+                    Margin="5,0,0,0"/>
+
+
+                    <Button 
+                            Clicked="UpdateOffice_Clicked"
+                            FontFamily="IconsSolid"
+                            VerticalOptions="CenterAndExpand"
+                            StyleClass="CircularButton"
+                            Text="&#xf0c7;"
+                            Margin="30,0,0,0"
+                            Grid.Column="1"/>
+
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+    </Frame>
+</mct:Popup>

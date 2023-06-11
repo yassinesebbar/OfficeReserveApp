@@ -11,7 +11,7 @@ namespace OfficeReserveApp.MVVM.Models
     [AddINotifyPropertyChangedInterface]
     public class Reservation
     {
-
+        public string ReservationHolder { get; set; }
         public DateTime EndTime { get; set; }
 
         public DateTime StartTime { get; set; }

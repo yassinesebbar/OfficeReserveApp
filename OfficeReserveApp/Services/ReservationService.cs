@@ -13,12 +13,12 @@ namespace OfficeReserveApp.Services
 
     [AddINotifyPropertyChangedInterface]
 
-    class ReservationService : BaseService
+   public class ReservationService : BaseService
     {
 
-        private ByteArrayContent ReservationToContentHeader(Reservation reservation)
+        private ByteArrayContent ObjectToContentHeader(object obj)
         {
-            var myContent = JsonSerializer.Serialize(reservation);
+            var myContent = JsonSerializer.Serialize(obj);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -54,6 +54,58 @@ namespace OfficeReserveApp.Services
             return OfficeReservations;
         }
 
+
+
+        public async Task<List<Reservation>> TaskGetOfficeReservations(DailyAvailability dailyAvailability)
+        {
+            List<Reservation> OfficeReservations = new List<Reservation>();
+
+            var byteContent = ObjectToContentHeader(dailyAvailability);
+
+            var response =
+                await Client.PostAsync(Constants.GetOfficeReservationsEndpoint, byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                OfficeReservations = await DeserializeReservations(response.Content);
+            }
+
+            return OfficeReservations;
+        }
+        
+        public async Task<Office> TaskGetMyOfficeInfo()
+        {
+            Office Office = new Office();
+
+
+            var response =
+                await Client.GetAsync(Constants.GetMyOfficeInformation);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                {
+                    Office = await JsonSerializer.DeserializeAsync<Office>(responseStream);
+                }
+            }
+
+            return Office;
+        }
+
+        public async Task TaskUpdateOffice(Office office)
+        {
+            var byteContent = ObjectToContentHeader(office);
+
+            var response =
+                await Client.PostAsync(Constants.UpdateOffice, byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+              // give success
+            };
+        }
+
+
         public async Task<List<DailyAvailability>> TaskGetMyOfficeDailyAvailability()
         {
             List<DailyAvailability> DailyAvailability = new List<DailyAvailability>();
@@ -72,14 +124,33 @@ namespace OfficeReserveApp.Services
             return DailyAvailability;
         }
 
-        public async Task<List<Reservation>> TaskDeleteReservation(Reservation reservation)
+        public async Task<List<DailyAvailability>> TaskGetOfficeDailyAvailability()
+        {
+            List<DailyAvailability> DailyAvailability = new List<DailyAvailability>();
+            var response =
+                await Client.GetAsync(Constants.GetOfficeDailyAvailabilityEndpoint);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                {
+                    var data = await JsonSerializer.DeserializeAsync<List<DailyAvailability>>(responseStream);
+                    DailyAvailability = data;
+                }
+            }
+
+            return DailyAvailability;
+        }
+
+        public async Task<List<Reservation>> TaskDeleteMyReservation(Reservation reservation)
         {
             List<Reservation> OfficeReservations = new List<Reservation>();
     
-            var byteContent =  ReservationToContentHeader(reservation);
+            var byteContent = ObjectToContentHeader(reservation);
+
 
             var response =
-               await Client.PostAsync(Constants.DeleteReservationEndpoint, byteContent);
+               await Client.PostAsync(Constants.DeleteMyReservationEndpoint, byteContent);
 
             if (response.IsSuccessStatusCode)
             {
@@ -92,14 +163,24 @@ namespace OfficeReserveApp.Services
             return OfficeReservations;
         }
 
-        public async Task<List<Reservation>> TaskDCreateReservation(Reservation reservation)
+            public async Task TaskDeleteReservation(Reservation reservation)
+            {
+    
+                var byteContent = ObjectToContentHeader(reservation);
+
+
+                var response =
+                   await Client.PostAsync(Constants.DeleteReservationEndpoint, byteContent);
+
+            }
+
+        public async Task<List<Reservation>> TaskCreateReservation(Reservation reservation)
         {
             List<Reservation> OfficeReservations = new List<Reservation>();
           
-            var byteContent =  ReservationToContentHeader(reservation);
+            var byteContent = ObjectToContentHeader(reservation);
 
-            var endpointCreate = Constants.CreateReservationEndpoint;
-            var endpointDelete = Constants.DeleteReservationEndpoint;
+     
             var response =
                await Client.PostAsync(Constants.CreateReservationEndpoint, byteContent);
 
@@ -107,6 +188,7 @@ namespace OfficeReserveApp.Services
             {
                 if (response.IsSuccessStatusCode)
                 {
+
                     OfficeReservations = await DeserializeReservations(response.Content);
                 }
             }

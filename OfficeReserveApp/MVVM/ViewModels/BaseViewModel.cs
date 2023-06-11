@@ -17,6 +17,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
     public class BaseViewModel
     {
+
         public User CurrentUser { get; private set; }
         private Image LoadingImage;
         protected AuthenticationService AuthenticationService { get; private set; }
@@ -42,13 +43,15 @@ namespace OfficeReserveApp.MVVM.ViewModels
         public void AddToLoadingqueue(string process)
         {
             Loadingqueue.Add(process);
-            LoadingImage.IsAnimationPlaying = IsLoading;
+            if (LoadingImage != null)
+                LoadingImage.IsAnimationPlaying = IsLoading;
         }
 
         public void RemoveFromLoadingqueue(string process)
         {
             Loadingqueue.Remove(process);
-            LoadingImage.IsAnimationPlaying = IsLoading;
+            if (LoadingImage != null)
+                LoadingImage.IsAnimationPlaying = IsLoading;
         }
 
         public Boolean IsAlreadyLoading(string process)
