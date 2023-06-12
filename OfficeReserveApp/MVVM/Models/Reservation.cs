@@ -45,6 +45,7 @@ namespace OfficeReserveApp.MVVM.Models
         }
         public string OfficeName { get; set; }
         public string ConferenceRoom { get; set; }
+        public int ConferenceID { get; set; }
         public string timeFromTo
         {
             get

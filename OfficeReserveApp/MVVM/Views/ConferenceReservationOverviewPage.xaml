@@ -2,12 +2,338 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OfficeReserveApp.MVVM.Views.ConferenceReservationOverviewPage"
+             xmlns:local="clr-namespace:OfficeReserveApp.MVVM.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             FlyoutItem.IsVisible ="False"
              Title="ConferenceReservationOverviewPage">
-    <VerticalStackLayout VerticalOptions="Center" Spacing="20"> 
-        <Label 
-            Text="Welcome to .NET MAUI! Dashboard page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
+
+    <Grid RowDefinitions=".10*,.10*,.50*,.60*">
+        <RoundRectangle  StyleClass="TopRectangle"/>
+        <Image Margin="0" HorizontalOptions="CenterAndExpand" Source="edenbluelogo.png" WidthRequest="80"/>
+        <Frame Margin="-8,-1,-8,0" BorderColor="White" Grid.Row="1" Grid.RowSpan="2"  CornerRadius="29">
+            <Grid  RowDefinitions=".12*, .15*, .35*,.15*"  BackgroundColor="white" >
+
+
+                <HorizontalStackLayout  Spacing="20">
+                    <HorizontalStackLayout VerticalOptions="Center" Spacing="5">
+
+                        <Image VerticalOptions="Start" WidthRequest="21" Margin="0,0,0,0" Source="officebuilding.png">
+                            <Image.Behaviors >
+                                <toolkit:IconTintColorBehavior  TintColor="{StaticResource SecondaryColor}" />
+                            </Image.Behaviors>
+                        </Image>
+
+                        <Picker Margin="0, -16,0,0" 
+                                FontFamily="strong"
+                            VerticalOptions="Start"
+                            x:Name="picker"
+                            HeightRequest="45"
+                            WidthRequest="105"
+                            Title="VESTIGING"
+                            HorizontalTextAlignment="Center"
+                            ItemsSource="{Binding Offices}"
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedItem="{Binding SelectedOffice}"
+                            SelectedIndexChanged="picker_OfficeSelectedIndexChanged"/>
+
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout VerticalOptions="Center" Spacing="5">
+                    
+
+                        <Image VerticalOptions="Start" WidthRequest="20" Margin="0,0,0,0" Source="boardmeeting.png">
+                            <Image.Behaviors >
+                                <toolkit:IconTintColorBehavior  TintColor="{StaticResource SecondaryColor}" />
+                            </Image.Behaviors>
+                        </Image>
+
+                        <Picker Margin="0, -16,0,0" 
+                            VerticalOptions="Start"
+                                FontFamily="strong"
+                            x:Name="ConferencePicker"
+                            HeightRequest="45"
+                            WidthRequest="105"
+                            Title="RUIMTE"
+                            HorizontalTextAlignment="Center"
+                            ItemsSource="{Binding FilteredConferences}"
+                            ItemDisplayBinding="{Binding Name}"
+                                IsEnabled="{Binding SelectConferenceIsEnabled}"
+                                SelectedItem="{Binding SelectedConference}"/>
+                    </HorizontalStackLayout>
+
+                    <Button 
+                            VerticalOptions="Start"
+                        Command="{Binding CreateReservationCommand}"
+                            Margin="-10, 0,0,0"
+                            WidthRequest="25"
+                            HeightRequest="25"
+                            IsEnabled="{Binding ReadyToCreateReservation}"
+                            FontFamily="IconsSolid"
+                            StyleClass="RectButton"
+                            FontSize="20"
+                            Text="&#xf029;"/>
+
+
+                </HorizontalStackLayout>
+                
+                <CollectionView ItemsSource="{Binding ConferenceDailyAvailabilities}"
+                                SelectionMode="Single"
+                                SelectionChanged="DaySelectionChanged"
+                                SelectedItem="{Binding SelectedDay}"
+                                Grid.Row="1"
+                                x:Name="OfficeDailyAvailabilitiesView">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid BackgroundColor="#66c7c9c9" Padding="10" >
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal"></VisualState>
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource MainColor50Opac}"></Setter>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <StackLayout>
+                                    <Label HorizontalOptions="CenterAndExpand"  
+                                           FontSize="15" 
+                                           FontAttributes="Bold" 
+                                           TextTransform="Uppercase" 
+                                           Text="{Binding Day, StringFormat='{0:ddd}'}" />
+
+                                    <HorizontalStackLayout>
+
+                                        <Label VerticalTextAlignment="Center" 
+                                               Margin="0,0,5,0" 
+                                               HorizontalOptions="CenterAndExpand" 
+                                               FontFamily="Regular" 
+                                               FontSize="15"  
+                                               Text="{Binding Day, StringFormat='{0:dd}'}"/>
+
+                                        <Label VerticalTextAlignment="Center" 
+                                               HorizontalOptions="CenterAndExpand" 
+                                               FontFamily="Regular" 
+                                               FontSize="14" 
+                                               Text="{Binding Day, StringFormat='{0:MMM}'}"/>
+
+                                    </HorizontalStackLayout>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Frame Grid.Row="2"
+                       Margin="0,10,0,0"
+                       Padding="0,0,0,0"
+                       CornerRadius="0"
+                       BorderColor="Transparent"
+                       BackgroundColor="#66c7c9c9"
+                       VerticalOptions="CenterAndExpand"
+                       
+                       HorizontalOptions="CenterAndExpand">
+                    <CollectionView 
+                        WidthRequest="300"
+                        HeightRequest="110"
+                        HorizontalOptions="CenterAndExpand"
+                                Margin="30,10,30,10"
+                                ItemsSource="{Binding ConferenceReservations}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="10"
+                                       Orientation="Vertical"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.EmptyViewTemplate>
+                            <DataTemplate >
+                                <Grid>
+                                    <Label StyleClass="NoDataText"
+                                   Text="Geen reserveringen gevonden"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.EmptyViewTemplate>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid  ColumnDefinitions="*,.55*" RowSpacing="0">
+
+                                    <Label FontSize="13" TextTransform="Uppercase" StyleClass="StrongMediumTitle" Text="{Binding ReservationHolder}"/>
+
+                                    <Label
+                                    FontSize="16"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                        Grid.ColumnSpan="2"
+                                        
+                                    StyleClass="ListFont"
+                                    Text="{Binding timeFromTo}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </Frame>
+
+
+                <Frame 
+                       Margin="0,8,0,0"
+                       Padding="10,0,5,0"
+                       CornerRadius="0"
+                       BorderColor="Transparent"
+                       BackgroundColor="#66c7c9c9"
+                      
+                       Grid.Row="3">
+
+                    <Grid   ColumnDefinitions=".75*,.25*"  VerticalOptions="Center">
+                        <HorizontalStackLayout>
+                            <Label 
+                               HorizontalTextAlignment="Center" 
+                               VerticalTextAlignment="Center"  
+                               TextColor="#424242" 
+                               CharacterSpacing="2" 
+                               FontFamily="Icons" 
+                               Text="&#xf017;" 
+                               FontSize="25" />
+
+                            <TimePicker  Time="{Binding StartTimeSpan}" 
+                                     FontAttributes="Bold" 
+                                     TextColor="#424242" 
+                                     x:Name="TimeStart" 
+                                     FontFamily="Regular" 
+                                     Margin="3,0,0,0" 
+                                     HorizontalOptions="CenterAndExpand" 
+                                     FontSize="30" 
+                                     VerticalOptions="CenterAndExpand" />
+
+                            <Label TextColor="#424242"  
+                               VerticalOptions="CenterAndExpand" 
+                               Margin="10"  
+                               FontFamily="IconsSolid" 
+                               Text="&#xF0da;" 
+                               FontSize="15" />
+
+                            <TimePicker Time="{Binding EndTimeSpan}" 
+                                    FontAttributes="Bold" 
+                                    TextColor="#424242"  
+                                    x:Name="TimeEnd" 
+                                    FontFamily="Regular" 
+                                    FontSize="30" 
+                                    VerticalOptions="CenterAndExpand"/>
+
+                        </HorizontalStackLayout>
+                        <Button 
+                            Command="{Binding CreateReservationCommand}"
+                            FontFamily="IconsSolid"
+                            VerticalOptions="CenterAndExpand"
+                            StyleClass="RectButton"
+                            Text="&#x2b;"
+                            x:Name="AddTransaction"
+                            Margin="30,4,0,0"
+                        IsEnabled="{Binding ReadyToCreateReservation}"
+                        Grid.Column="1"/>
+                    </Grid>
+                </Frame>
+
+
+            </Grid>
+        </Frame>
         
-    </VerticalStackLayout>
+        <Grid Grid.Row="4"
+              RowDefinitions=".1*,.6*,.1*"
+              BackgroundColor="#1Ac7c9c9"
+              Margin="0,-10,0,0">
+                <Grid Margin="15,5,20,0" ColumnDefinitions="4*,*">
+                    <Label StyleClass="StrongMediumTitle" VerticalTextAlignment="Center" FontSize="16" TextColor="#2e4366" TextTransform="Uppercase" Padding="5,5,5,5" Text="Mijn Ruimte Reserveringen"/>
+                    <Image x:Name="loadingImg" Grid.Column="1" HorizontalOptions="End" WidthRequest="30" IsAnimationPlaying="{Binding IsLoading}" Source="loading">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UpdateViewCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+            
+            <CollectionView Grid.Row="1"
+                            EmptyView="No Data"
+                            Margin="30,20,30,0"
+                            ItemsSource="{Binding  MyConferenceReservations}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="15"
+                                       Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.EmptyViewTemplate>
+                    <DataTemplate>
+                            <Label StyleClass="NoDataText"
+                                   Text="Je hebt geen reserveringen"/>
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItemView >
+                                        <SwipeItemView.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                    CommandParameter="{Binding .}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ConferenceReservationViewModel}}, Path=DeleteConferenceReservationCommand}"/>
+
+
+                                        </SwipeItemView.GestureRecognizers>
+                                        <Border WidthRequest="60" Margin="0,2,-5,10" BackgroundColor="#08fc0505" Stroke="#80fc0505">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="2,2,2,2" />
+                                            </Border.StrokeShape>
+                                            <StackLayout Margin="0"
+                                                        WidthRequest="25" >
+                                                <Label TextColor="#a6fc0505" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" FontFamily="IconsSolid" Text="&#xf2ed;" FontSize="21"/>
+                                            </StackLayout>
+                                        </Border>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" RowSpacing="-3">
+
+                                <Label FontSize="14" 
+                                       TextTransform="Uppercase" 
+                                       StyleClass="StrongMediumTitle" 
+                                       Text="{Binding Date, StringFormat='{0:dddd dd MMM}'}"/>
+
+                                <HorizontalStackLayout Spacing="5" Grid.Row="1">
+                                    <Label
+                                    StyleClass="SmallFont"
+                                    Text="{Binding OfficeName}"/>
+                                    <Label
+                                    StyleClass="SmallFont"
+                                    Text=">"/>
+                                    <Label
+                                    StyleClass="SmallFont"
+                                    Text="{Binding ConferenceRoom}"/>
+                                </HorizontalStackLayout>
+                                
+                            
+
+
+                                <Label
+                                    FontSize="18"
+                                    Grid.Column="1"
+                                        
+                                    StyleClass="ListFont"
+                                    Text="{Binding timeFromTo}"/>
+                            </Grid>
+                        </SwipeView>
+
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+
+        </Grid>
+    </Grid>
+
+
 </ContentPage>

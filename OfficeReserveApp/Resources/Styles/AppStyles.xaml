@@ -7,6 +7,7 @@
     <Color x:Key="MainColor">#3d5377</Color>
     <Color x:Key="MainColor50Opac">#7a3d5377</Color>
     <Color x:Key="SecondaryColor">#bcd433</Color>
+    <Color x:Key="SecondaryColorOpac">#ccbcd433</Color>
     <Color x:Key="WhiteOpacity">#33c7c9c9</Color>
 
     <Style TargetType="Grid">
@@ -38,9 +39,6 @@
         <Setter Property="TextColor" Value="{StaticResource White}" />
     </Style>
 
-    <Style Class="BalanceGrid" TargetType="Grid">
-        <Setter Property="Margin" Value="15" />
-    </Style>
 
     <Shadow
         x:Key="shadow"
@@ -49,12 +47,6 @@
         Radius="5"
         Offset="0,1" />
 
-    <Style Class="BalanceRectangle" TargetType="RoundRectangle">
-        <Setter Property="Margin" Value="-15" />
-        <Setter Property="CornerRadius" Value="0" />
-        <Setter Property="Fill" Value="{StaticResource WhiteOpacity}" />
-        <Setter Property="StrokeThickness" Value="2" />
-    </Style>
 
     <Style
         ApplyToDerivedTypes="True"
@@ -111,14 +103,14 @@
         <Setter Property="FontSize" Value="Small" />
     </Style>
 
-    <Style Class="ListAmount" TargetType="Label">
+    <Style Class="ListFont" TargetType="Label">
         <Setter Property="FontSize" Value="Medium" />
         <Setter Property="HorizontalTextAlignment" Value="End" />
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
 
-    <Style Class="CircularButton" TargetType="Button">
+    <Style Class="RectButton" TargetType="Button">
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="FontSize" Value="Medium" />

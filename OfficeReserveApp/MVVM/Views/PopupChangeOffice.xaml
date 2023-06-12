@@ -42,7 +42,7 @@
                             Clicked="UpdateOffice_Clicked"
                             FontFamily="IconsSolid"
                             VerticalOptions="CenterAndExpand"
-                            StyleClass="CircularButton"
+                            StyleClass="RectButton"
                             Text="&#xf0c7;"
                             Margin="30,0,0,0"
                             Grid.Column="1"/>

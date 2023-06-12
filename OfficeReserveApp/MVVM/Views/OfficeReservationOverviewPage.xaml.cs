@@ -8,16 +8,16 @@ namespace OfficeReserveApp.MVVM.Views;
 
 public partial class OfficeReservationOverviewPage : ContentPage
 {
-	private OfficeReservationOverviewModel OfficeReservationOverviewModel { get; set; } 
+	private OfficeReservationViewModel ViewModel { get; set; } 
 
     public OfficeReservationOverviewPage()
 	{
 		InitializeComponent();
-                // LoadingIMG Hack because Maui image animation  not working with proper binding  is an issue not solved by microsoft// 
-        OfficeReservationOverviewModel = new OfficeReservationOverviewModel((Image)loadingImg);
-        BindingContext = OfficeReservationOverviewModel;
+        // LoadingIMG Hack because Maui image animation  not working with proper binding  is an issue not solved by microsoft// 
+        ViewModel = new OfficeReservationViewModel((Image)loadingImg);
+        BindingContext = ViewModel;
 
-        OfficeReservationOverviewModel.UpdateData();
+        ViewModel.UpdateData();
       
     }
 

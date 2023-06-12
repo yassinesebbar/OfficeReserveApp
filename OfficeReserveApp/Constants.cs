@@ -22,6 +22,13 @@ namespace OfficeReserveApp
         public static string GetOfficeDailyAvailabilityEndpoint = BaseURL + "/rest/reservation/v1/service/getoccupationofficemanager";
         public static string GetMyOfficeInformation = BaseURL + "/rest/reservation/v1/service/getofficeinformation";
         public static string UpdateOffice = BaseURL + "/rest/reservation/v1/service/updateoffice";
+        public static string GetOffices = BaseURL + "/rest/reservation/v1/service/getoffices";
+        public static string GetConferences = BaseURL + "/rest/reservation/v1/service/getconferences";
+        public static string GetAvailabilityDays = BaseURL + "/rest/reservation/v1/service/getavailabilitydays";
+        public static string GetMyConferenceReservations = BaseURL + "/rest/reservation/v1/service/getmyconferencereservations";
+        public static string GetConferenceReservations = BaseURL + "/rest/reservation/v1/service/getconferencereservations";
+        public static string DeleteMyConferenceReservations = BaseURL + "/rest/reservation/v1/service/deleteconferencereservation";
+        public static string CreateConferenceReservation = BaseURL + "/rest/reservation/v1/service/createconferencereservation";
 
         // Processes
 
@@ -30,5 +37,11 @@ namespace OfficeReserveApp
         public static string GetMyOfficeReservations_Process = "GetMyOfficeReservationsProcess";
         public static string GetDailyAvailability_Process = "GetDailyAvailabilityProcess";
         public static string UpdateOffice_Process = "UpdateOfficeProcess";
+        public static string GetOffices_Process = "GetOfficesProcess";
+        public static string GetConferences_Process = "GetConferencesProcess";
+        public static string GetAvailabilityDays_Process = "GetAvailabilityDaysProcess";
+        public static string GetConferenceReservations_Process = "GetConferenceReservationsProcess";
+        public static string DeleteMyConferenceReservations_Process = "DeleteMyConferenceReservationsProcess";
+        public static string CreateMyConferenceReservation_Process = "CreateMyConferenceReservationProcess";
     }
 }

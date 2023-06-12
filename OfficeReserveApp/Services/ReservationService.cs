@@ -1,4 +1,5 @@
-﻿using OfficeReserveApp.MVVM.Models;
+﻿using OfficeReserveApp.DTOModels;
+using OfficeReserveApp.MVVM.Models;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,37 @@ namespace OfficeReserveApp.Services
             return OfficeReservations;
         }
 
+        
+       public async Task<List<Reservation>> TaskGetMyConferenceReservations()
+        {
+            List<Reservation> ConferenceReservations = new List<Reservation>();
+            var response = 
+                await Client.GetAsync(Constants.GetMyConferenceReservations);
+
+            if (response.IsSuccessStatusCode)
+            {
+                ConferenceReservations = await DeserializeReservations(response.Content);
+            }
+
+            return ConferenceReservations;
+        }
+         
+       public async Task<List<Reservation>> TaskGetConferenceReservations(ExportConferenceDate ConferenceDate)
+        {
+            List<Reservation> ConferenceReservations = new List<Reservation>();
+            var byteContent = ObjectToContentHeader(ConferenceDate);
+
+            var response = 
+                await Client.PostAsync(Constants.GetConferenceReservations, byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                ConferenceReservations = await DeserializeReservations(response.Content);
+            }
+
+            return ConferenceReservations;
+        }
+
 
 
         public async Task<List<Reservation>> TaskGetOfficeReservations(DailyAvailability dailyAvailability)
@@ -104,6 +136,46 @@ namespace OfficeReserveApp.Services
               // give success
             };
         }
+        
+        public async Task<List<Office>> TaskGetOffices()
+        {
+            List<Office> Offices = new List<Office>();
+
+            var response =
+                await Client.GetAsync(Constants.GetOffices);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                {
+                    var data = await JsonSerializer.DeserializeAsync<List<Office>>(responseStream);
+                    Offices = data;
+                }
+            };
+
+            return Offices;
+        }
+               
+        public async Task<List<Conference>> TaskGetConferences()
+        {
+            List<Conference> Conferences = new List<Conference>();
+
+            var response =
+                await Client.GetAsync(Constants.GetConferences);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                {
+                    var data = await JsonSerializer.DeserializeAsync<List<Conference>>(responseStream);
+                    Conferences = data;
+                }
+            }
+
+            return Conferences;
+        }
 
 
         public async Task<List<DailyAvailability>> TaskGetMyOfficeDailyAvailability()
@@ -142,6 +214,25 @@ namespace OfficeReserveApp.Services
             return DailyAvailability;
         }
 
+        public async Task<List<DailyAvailability>> TaskGetConferenceDailyAvailability()
+        {
+            List<DailyAvailability> DailyAvailability = new List<DailyAvailability>();
+            var response =
+                await Client.GetAsync(Constants.GetAvailabilityDays);
+
+            if (response.IsSuccessStatusCode)
+            {
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                {
+                    var data = await JsonSerializer.DeserializeAsync<List<DailyAvailability>>(responseStream);
+                    DailyAvailability = data;
+                }
+            }
+
+            return DailyAvailability;
+        }
+
+
         public async Task<List<Reservation>> TaskDeleteMyReservation(Reservation reservation)
         {
             List<Reservation> OfficeReservations = new List<Reservation>();
@@ -162,6 +253,29 @@ namespace OfficeReserveApp.Services
 
             return OfficeReservations;
         }
+        
+
+        public async Task<List<Reservation>> TaskDeleteMyConferenceReservation(Reservation reservation)
+        {
+            List<Reservation> OfficeReservations = new List<Reservation>();
+    
+            var byteContent = ObjectToContentHeader(reservation);
+
+
+            var response =
+               await Client.PostAsync(Constants.DeleteMyConferenceReservations, byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    OfficeReservations = await DeserializeReservations(response.Content);
+                }
+            }
+
+            return OfficeReservations;
+        }
+
 
             public async Task TaskDeleteReservation(Reservation reservation)
             {
@@ -183,6 +297,28 @@ namespace OfficeReserveApp.Services
      
             var response =
                await Client.PostAsync(Constants.CreateReservationEndpoint, byteContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.IsSuccessStatusCode)
+                {
+
+                    OfficeReservations = await DeserializeReservations(response.Content);
+                }
+            }
+
+            return OfficeReservations;
+        }
+        
+        public async Task<List<Reservation>> TaskCreateConferenceReservation(Reservation reservation)
+        {
+            List<Reservation> OfficeReservations = new List<Reservation>();
+          
+            var byteContent = ObjectToContentHeader(reservation);
+
+     
+            var response =
+               await Client.PostAsync(Constants.CreateConferenceReservation, byteContent);
 
             if (response.IsSuccessStatusCode)
             {

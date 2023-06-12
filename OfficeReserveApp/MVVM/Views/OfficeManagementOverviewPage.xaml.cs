@@ -6,20 +6,20 @@ namespace OfficeReserveApp.MVVM.Views;
 public partial class OfficeManagementOverviewPage : ContentPage
 {
 
-	public OfficeManagementOverviewModel officeManagementOverviewModel { get; set; }
+	public OfficeManagementViewModel ViewModel { get; set; }
 
     public OfficeManagementOverviewPage()
 	{
 		InitializeComponent();
-        officeManagementOverviewModel = new OfficeManagementOverviewModel((Image)loadingImg);
-        BindingContext = officeManagementOverviewModel;
+        ViewModel = new OfficeManagementViewModel((Image)loadingImg);
+        BindingContext = ViewModel;
 
-        officeManagementOverviewModel.UpdateData();
-        officeManagementOverviewModel.GetOfficeInfo();
+        ViewModel.UpdateData();
+        ViewModel.GetOfficeInfo();
     }
 
     private void ChangeOffice_Tapped(object sender, TappedEventArgs e)
     {
-        this.ShowPopup(new PopupChangeOffice(officeManagementOverviewModel));
+        this.ShowPopup(new PopupChangeOffice(ViewModel));
     }
 }

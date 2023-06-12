@@ -12,7 +12,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
 
-    public class OfficeManagementOverviewModel : BaseViewModel
+    public class OfficeManagementViewModel : BaseViewModel
     {
         public List<Reservation> OfficeReservations { get; set; }
         public List<DailyAvailability> OfficeDailyAvailabilities { get; set; }
@@ -24,7 +24,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
         public ICommand ChangeDailyAvailabilityCommand { get; set; }
         public ICommand UpdateViewCommand { get; set; }
 
-        public OfficeManagementOverviewModel(Image loadingImg) : base(loadingImg)
+        public OfficeManagementViewModel(Image loadingImg) : base(loadingImg)
         {
             OfficeReservations = new List<Reservation>();
             OfficeDailyAvailabilities = new List<DailyAvailability>();

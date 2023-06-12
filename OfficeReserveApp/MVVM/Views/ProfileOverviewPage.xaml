@@ -19,15 +19,15 @@
                 <StackLayout Spacing="25" VerticalOptions="CenterAndExpand" Margin="25,50,10,10">
                     <VerticalStackLayout Spacing="3">
                         <Label FontSize="18" TextTransform="Uppercase" HorizontalTextAlignment="Start" StyleClass="StrongMediumTitle" Text="Gebruikersnaam"/>
-                        <Label FontSize="18"  HorizontalTextAlignment="Start" StyleClass="ListAmount" Text="{Binding CurrentUser.Username}"/>
+                        <Label FontSize="18"  HorizontalTextAlignment="Start" StyleClass="ListFont" Text="{Binding CurrentUser.Username}"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout Spacing="3">
                         <Label FontSize="18" TextTransform="Uppercase" HorizontalTextAlignment="Start" StyleClass="StrongMediumTitle" Text="Naam"/>
-                        <Label FontSize="18"  HorizontalTextAlignment="Start" StyleClass="ListAmount" Text="{Binding CurrentUser.Fullname}"/>
+                        <Label FontSize="18"  HorizontalTextAlignment="Start" StyleClass="ListFont" Text="{Binding CurrentUser.Fullname}"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout Spacing="3">
                         <Label FontSize="18" TextTransform="Uppercase" HorizontalTextAlignment="Start" StyleClass="StrongMediumTitle" Text="Rol"/>
-                        <Label FontSize="18"  HorizontalTextAlignment="Start" StyleClass="ListAmount" Text="{Binding CurrentUser.Rol}"/>
+                        <Label FontSize="18"  HorizontalTextAlignment="Start" StyleClass="ListFont" Text="{Binding CurrentUser.Rol}"/>
                     </VerticalStackLayout>
                 </StackLayout>
            

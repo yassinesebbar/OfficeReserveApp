@@ -14,7 +14,7 @@ namespace OfficeReserveApp.MVVM.Models
     public class Office
     {
         public string Name { get; set; }
-        public int KantoorID { get; set; }
+        public int OfficeID { get; set; }
         public int AmountWorkSpots { get; set; }
     }
 }

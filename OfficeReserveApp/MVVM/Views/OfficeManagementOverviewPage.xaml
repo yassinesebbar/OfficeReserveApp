@@ -5,7 +5,6 @@
              xmlns:converters="clr-namespace:OfficeReserveApp.Converters"
              xmlns:local="clr-namespace:OfficeReserveApp.MVVM.ViewModels"
              Title="OfficeManagementOverviewPage"
-             Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
@@ -166,7 +165,7 @@
                                         <SwipeItemView.GestureRecognizers>
                                             <TapGestureRecognizer 
                                                     CommandParameter="{Binding .}"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:OfficeManagementOverviewModel}}, Path=DeleteOfficeReservationCommand}"/>
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:OfficeManagementViewModel}}, Path=DeleteOfficeReservationCommand}"/>
 
 
                                         </SwipeItemView.GestureRecognizers>
@@ -198,7 +197,7 @@
                                         Grid.ColumnSpan="2"
                                         HorizontalOptions="Start"
                                         
-                                    StyleClass="ListAmount"
+                                    StyleClass="ListFont"
                                     Text="{Binding timeFromTo}"/>
                             </Grid>
                         </SwipeView>

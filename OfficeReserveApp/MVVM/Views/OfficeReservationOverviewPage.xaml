@@ -76,20 +76,29 @@
 
                 </CollectionView>
 
-                <Grid Padding="0,7,0,0" Grid.Row="1" ColumnDefinitions=".75*,.25*"  VerticalOptions="CenterAndExpand">
-                    <HorizontalStackLayout>
-                        <Label 
+                <Frame 
+                       Margin="0,10,0,0"
+                       Padding="10,0,5,0"
+                       CornerRadius="0"
+                       BorderColor="Transparent"
+                       BackgroundColor="#66c7c9c9"
+                      
+                       Grid.Row="1">
+                    
+                    <Grid   ColumnDefinitions=".75*,.25*"  VerticalOptions="CenterAndExpand">
+                        <HorizontalStackLayout>
+                            <Label 
                                HorizontalTextAlignment="Center" 
                                VerticalTextAlignment="Center"  
-                               TextColor="#2e4366" 
+                               TextColor="#424242" 
                                CharacterSpacing="2" 
                                FontFamily="Icons" 
                                Text="&#xf017;" 
                                FontSize="25" />
 
-                        <TimePicker  Time="{Binding StartTimeSpan}" 
+                            <TimePicker  Time="{Binding StartTimeSpan}" 
                                      FontAttributes="Bold" 
-                                     TextColor="#2e4366" 
+                                     TextColor="#424242" 
                                      x:Name="TimeStart" 
                                      FontFamily="Regular" 
                                      Margin="3,0,0,0" 
@@ -97,33 +106,35 @@
                                      FontSize="30" 
                                      VerticalOptions="CenterAndExpand" />
 
-                        <Label TextColor="#2e4366"  
+                            <Label TextColor="#424242"  
                                VerticalOptions="CenterAndExpand" 
                                Margin="10"  
                                FontFamily="IconsSolid" 
                                Text="&#xF0da;" 
                                FontSize="15" />
 
-                        <TimePicker Time="{Binding EndTimeSpan}" 
+                            <TimePicker Time="{Binding EndTimeSpan}" 
                                     FontAttributes="Bold" 
-                                    TextColor="#2e4366"  
+                                    TextColor="#424242"  
                                     x:Name="TimeEnd" 
                                     FontFamily="Regular" 
                                     FontSize="30" 
                                     VerticalOptions="CenterAndExpand"/>
 
-                    </HorizontalStackLayout>
-                    <Button 
+                        </HorizontalStackLayout>
+                        <Button 
                             Command="{Binding CreateReservationCommand}"
                             FontFamily="IconsSolid"
                             VerticalOptions="CenterAndExpand"
-                            StyleClass="CircularButton"
+                            StyleClass="RectButton"
                             Text="&#x2b;"
                             x:Name="AddTransaction"
                             Margin="30,4,0,0"
                         IsEnabled="{Binding ReadyToCreateReservation}"
                         Grid.Column="1"/>
-                </Grid>
+                    </Grid>
+                </Frame>
+           
             </Grid>
         </Frame>
         <Grid Grid.Row="4"
@@ -131,7 +142,7 @@
               BackgroundColor="#1Ac7c9c9"
               Margin="0,0,0,0">
             <Grid Margin="15,5,20,0" ColumnDefinitions="4*,*">
-                <Label StyleClass="StrongMediumTitle" VerticalTextAlignment="Center" FontSize="18" TextColor="#2e4366" TextTransform="Uppercase" Padding="5,5,5,5" Text="Flexplek Reserveringen"/>
+                <Label StyleClass="StrongMediumTitle" VerticalTextAlignment="Center" FontSize="15" TextColor="#2e4366" TextTransform="Uppercase" Padding="5,5,5,5" Text="Mijn Flexplek Reserveringen"/>
                 <Image x:Name="loadingImg" Grid.Column="1" HorizontalOptions="End" WidthRequest="30" IsAnimationPlaying="{Binding IsLoading}" Source="loading">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding UpdateViewCommand}"/>
@@ -163,7 +174,7 @@
                                         <SwipeItemView.GestureRecognizers>
                                             <TapGestureRecognizer 
                                                     CommandParameter="{Binding .}"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:OfficeReservationOverviewModel}}, Path=DeleteOfficeReservationCommand}"/>
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:OfficeManagementViewModel}}, Path=DeleteOfficeReservationCommand}"/>
 
 
                                         </SwipeItemView.GestureRecognizers>
@@ -195,7 +206,7 @@
                                         Grid.ColumnSpan="2"
                                         HorizontalOptions="Start"
                                         
-                                    StyleClass="ListAmount"
+                                    StyleClass="ListFont"
                                     Text="{Binding timeFromTo}"/>
                                 </Grid>
                             </SwipeView>

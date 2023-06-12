@@ -5,13 +5,13 @@ namespace OfficeReserveApp.MVVM.Views;
 
 public partial class PopupChangeOffice : Popup
 {
-    OfficeManagementOverviewModel OfficeManagementOverviewModel { get; set; }
+    OfficeManagementViewModel ViewModel { get; set; }
 
-	public PopupChangeOffice(OfficeManagementOverviewModel OverviewModel)
+	public PopupChangeOffice(OfficeManagementViewModel OverviewModel)
 	{
 		InitializeComponent();
 		BindingContext = OverviewModel;
-        OfficeManagementOverviewModel = OverviewModel;
+        ViewModel = OverviewModel;
 
     }
 
@@ -22,8 +22,8 @@ public partial class PopupChangeOffice : Popup
 
     private void UpdateOffice_Clicked(object sender, EventArgs e)
     {
-        OfficeManagementOverviewModel.UpdateOffice();
-        OfficeManagementOverviewModel.UpdateData();
+        ViewModel.UpdateOffice();
+        ViewModel.UpdateData();
         Close();
     }
 }

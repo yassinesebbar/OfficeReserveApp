@@ -44,14 +44,18 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             Loadingqueue.Add(process);
             if (LoadingImage != null)
+            {
                 LoadingImage.IsAnimationPlaying = IsLoading;
+            }
         }
 
         public void RemoveFromLoadingqueue(string process)
         {
             Loadingqueue.Remove(process);
             if (LoadingImage != null)
+            {
                 LoadingImage.IsAnimationPlaying = IsLoading;
+            }
         }
 
         public Boolean IsAlreadyLoading(string process)
