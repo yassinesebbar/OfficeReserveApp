@@ -20,6 +20,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
         private ReservationService ReservationService { get; set; }
         public DailyAvailability SelectedDay { get; set; }
 
+        /*Selected start/endtime for reservations*/
         public TimeSpan StartTimeSpan { get; set; }
         public TimeSpan EndTimeSpan { get; set; }
 
@@ -27,6 +28,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
         public ICommand CreateReservationCommand { get; set; }
         public ICommand UpdateViewCommand { get; set; }
 
+        /*Boolean to enable creating reservation after requirements are met*/
         public Boolean ReadyToCreateReservation
         {
             get { 
@@ -112,7 +114,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
             return this.SelectedDay != null && StartTimeSpan.Ticks > 0 && EndTimeSpan.Ticks > 0;
         }
 
-
+        /*If the status of a certain day is Closed then the day is not reservable*/
         public void CheckDayIsReservable()
         {
             if (SelectedDay.Status == StatusAvailability.Closed)

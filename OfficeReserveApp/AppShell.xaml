@@ -7,14 +7,16 @@
     Shell.NavBarIsVisible="False"
     x:Name="Shell">
 
-
+<!--Login page-->
+    
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate views:LoginPage}"
         Route="LoginPage"/>
 
+    <!--Overview for employee-->
+    
     <TabBar>
-
         <ShellContent
             Icon="officechair.png"
             Title="Flexplek"
@@ -34,6 +36,8 @@
                     Route="ProfileOverviewPage" />
     </TabBar>
 
+    <!--Overview for Office managers-->
+    
     <TabBar>
         
         <ShellContent

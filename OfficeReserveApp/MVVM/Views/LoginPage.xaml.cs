@@ -23,7 +23,7 @@ public partial class LoginPage : ContentPage
         var pageViewObject = (LoginPageViewModel)BindingContext;
         pageViewObject.LoginAction();
 
-        pageViewObject.RouteBasedOnUser();
+        pageViewObject.RouteBasedOnIdenitity();
     }
 
     private void Button_Clicked1(object sender, EventArgs e)
@@ -33,7 +33,7 @@ public partial class LoginPage : ContentPage
         pageViewObject.LoginRequest.UserName = "medewerker";
         pageViewObject.LoginAction();
 
-        pageViewObject.RouteBasedOnUser();
+        pageViewObject.RouteBasedOnIdenitity();
     }
 
     private void Button_Clicked2(object sender, EventArgs e)
@@ -43,6 +43,6 @@ public partial class LoginPage : ContentPage
         pageViewObject.LoginRequest.UserName = "officemedewerkerutrecht";
         pageViewObject.LoginAction();
 
-        pageViewObject.RouteBasedOnUser();
+        pageViewObject.RouteBasedOnIdenitity();
     }
 }
