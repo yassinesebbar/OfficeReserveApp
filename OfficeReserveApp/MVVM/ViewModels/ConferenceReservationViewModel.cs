@@ -16,25 +16,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
     public class ConferenceReservationViewModel : BaseViewModel
     {
 
-        private ReservationService ReservationService { get; set; }
         public DailyAvailability SelectedDay { get; set; }
-        public Boolean SelectDayIsEnabled
-        { get 
-            { 
-                return SelectedOffice != null && SelectedConference != null;  
-            } 
-        }
-
-        public Boolean ReadyToCreateReservation
-        {
-            get
-            {
-                return ReadyToCreateReservationCheck();
-            }
-        }
-
-        public TimeSpan StartTimeSpan { get; set; }
-        public TimeSpan EndTimeSpan { get; set; }
 
         public List<DailyAvailability> ConferenceDailyAvailabilities { get; set; }
         public List<Reservation> ConferenceReservations { get; set; }
@@ -44,17 +26,31 @@ namespace OfficeReserveApp.MVVM.ViewModels
         public List<Office> Offices { get; set; }
         public Conference SelectedConference { get; set; }
         public Office SelectedOffice { get; set; }
+        public Boolean CanActivateBarcode = true;
 
         public ICommand DeleteConferenceReservationCommand { get; set; }
         public ICommand CreateReservationCommand { get; set; }
         public ICommand UpdateViewCommand { get; set; }
 
-
-
-
         public Boolean SelectConferenceIsEnabled { get {
                 return SelectedOffice != null && FilteredConferences.Count > 0;
             } }
+
+        public Boolean SelectDayIsEnabled
+        {
+            get
+            {
+                return SelectedOffice != null && SelectedConference != null;
+            }
+        }
+
+        public Boolean ReadyToCreateReservation
+        {
+            get
+            {
+                return ReadyToCreateReservationCheck();
+            }
+        }
 
         public ConferenceReservationViewModel(Image loadingImg) :base(loadingImg)
         {
@@ -70,133 +66,11 @@ namespace OfficeReserveApp.MVVM.ViewModels
             UpdateViewCommand = new Command(UpdateData);
         }
 
-        public void UpdateData()
+        public void UpdateData() { GetMyConferenceReservations();}
+
+        public Conference GetConferenceById(int conferenceId)
         {
-          
-            GetMyConferenceReservations();
-        }
-
-        public void dummyData()
-        {
-
-            DailyAvailability DA1 = new DailyAvailability{ 
-                Day = DateTime.Now,
-                OfficeDailyAvailabilityID = 1,
-                Status = StatusAvailability.Available
-            };
-
-            DailyAvailability DA2 = new DailyAvailability
-            {
-                Day = DateTime.Now.AddDays(1),
-                OfficeDailyAvailabilityID = 2,
-                Status = StatusAvailability.Available
-            };
-
-            ConferenceDailyAvailabilities.Add(DA1);
-            ConferenceDailyAvailabilities.Add(DA2);
-            ConferenceDailyAvailabilities.Add(DA2);
-            ConferenceDailyAvailabilities.Add(DA2);
-            ConferenceDailyAvailabilities.Add(DA2);
-            ConferenceDailyAvailabilities.Add(DA2);
-            ConferenceDailyAvailabilities.Add(DA2);
-            ConferenceDailyAvailabilities.Add(DA2);
-       
-
-
-
-            Reservation R1 = new Reservation
-            {
-                Date = DateTime.Now.AddDays(1),
-                ReservationHolder = "Zalm van hek",
-                StartTime = DateTime.Now.AddDays(1),
-                EndTime = DateTime.Now.AddDays(1),
-                ConferenceRoom = "Discovery Room",
-                OfficeName = "Utrecht"
-            };
-
-            Reservation R2 = new Reservation
-            {
-                Date = DateTime.Now.AddDays(1),
-                ReservationHolder = "Joep van den Ende",
-                StartTime = DateTime.Now.AddDays(1),
-                EndTime = DateTime.Now.AddDays(1),
-                ConferenceRoom = "Meetup Room",
-                OfficeName = "Breda"
-            };
-
-            ConferenceReservations.Add(R1);
-            ConferenceReservations.Add(R2);
-            ConferenceReservations.Add(R2);
-            ConferenceReservations.Add(R2);
-            ConferenceReservations.Add(R2);
-            ConferenceReservations.Add(R2);
-            ConferenceReservations.Add(R2);
-
-
-            Office O1 = new Office
-            {
-                AmountWorkSpots = 5,
-                Name = "Utrecht",
-                OfficeID = 1
-            };
-
-            Office O2 = new Office
-            {
-                AmountWorkSpots = 5,
-                Name = "Breda",
-                OfficeID = 2
-            };
-
-            Conference C1 = new Conference
-            {
-                ConferenceID = 1,
-                OfficeID = 1,
-                Name = "Discovery Room",
-                Seats = 12
-            };
-
-            Conference C2 = new Conference
-            {
-                ConferenceID = 2,
-                OfficeID = 1,
-                Name = "Disicion Room",
-                Seats = 12
-            };
-
-            Conference C3 = new Conference
-            {
-                ConferenceID = 3,
-                OfficeID = 2,
-                Name = "Meetup Room",
-                Seats = 12
-            };
-
-            Conference C4 = new Conference
-            {
-                ConferenceID = 4,
-                OfficeID = 2,
-                Name = "Standup Room",
-                Seats = 12
-            };
-
-            Conference C5 = new Conference
-            {
-                ConferenceID = 5,
-                OfficeID = 2,
-                Name = "Project Radar Room",
-                Seats = 12
-            };
-
-
-            Offices.Add(O1);
-            Offices.Add(O2);
-
-            Conferences.Add(C1);
-            Conferences.Add(C2);
-            Conferences.Add(C3);
-            Conferences.Add(C4);
-            Conferences.Add(C5);
-
+            return Conferences.Find(c => c.ConferenceID == conferenceId);
         }
 
         public async void CreateConferenceReservation()
@@ -205,7 +79,8 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             AddToLoadingqueue(process);
 
-            Reservation NewReservation = new Reservation {
+            Reservation NewReservation = new()
+            {
                 StartTime = new DateTime(SelectedDay.Day.Ticks + StartTimeSpan.Ticks),
                 EndTime = new DateTime(SelectedDay.Day.Ticks + EndTimeSpan.Ticks),
                 Date = SelectedDay.Day,
@@ -213,12 +88,23 @@ namespace OfficeReserveApp.MVVM.ViewModels
                 OfficeName = SelectedOffice.Name,
                 ConferenceRoom = SelectedConference.Name,
                 ReservationHolder = CurrentUser.Fullname
+            };
 
-        };
-           
+
             if (ReservationIsValid(NewReservation))
             {
-                MyConferenceReservations = await ReservationService.TaskCreateConferenceReservation(NewReservation);
+
+                ActionResult actionResult = await ReservationService.TaskCreateConferenceReservation(NewReservation);
+                if (actionResult != null && actionResult.IsSuccess)
+                {
+                    GetMyConferenceReservations();
+                    SnackBar.Succesfull(actionResult.Message);
+                }
+                else
+                {
+                    SnackBar.UnSuccesfull(actionResult.Message);
+                }
+
             }
 
             RemoveFromLoadingqueue(process);
@@ -228,8 +114,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             return SelectConferenceIsEnabled && this.SelectedDay != null && StartTimeSpan.Ticks > 0 && EndTimeSpan.Ticks > 0;
         }
-
-        public Boolean ReservationIsValid(Reservation reservation)
+        public static Boolean ReservationIsValid(Reservation reservation)
         {
             if (reservation.StartTime < DateTime.Now)
             {
@@ -241,6 +126,36 @@ namespace OfficeReserveApp.MVVM.ViewModels
             }
 
             return true;
+        }
+
+        public void SetConferenceByConferenceId(int conferenceId)
+        {
+
+            SelectedConference = null;
+            SelectedOffice = null;
+            SelectedDay = null;
+
+            Conference foundConference = GetConferenceById(conferenceId);
+
+            if (foundConference != null)
+            {
+                Office foundOffice = Offices.Find(f => f.OfficeID == foundConference.OfficeID);
+                if (foundOffice != null)
+                {
+                    DailyAvailability foundAvailability = ConferenceDailyAvailabilities.OrderBy(o => o.Day).First();
+
+                    if (foundAvailability != null)
+                    {
+                        SelectedOffice = foundOffice;
+                        FilteredConferences = Conferences.FindAll(C => C.OfficeID == SelectedOffice.OfficeID);
+                        SelectedConference = foundConference;
+                        SelectedDay = foundAvailability;
+
+                        GetReservationsByConferenceAndDate();
+                    }
+                }
+            }
+
         }
 
         public async void GetMyConferenceReservations()
@@ -262,7 +177,17 @@ namespace OfficeReserveApp.MVVM.ViewModels
             AddToLoadingqueue(process);
 
             Reservation reservation = (Reservation)obj;
-            MyConferenceReservations = await ReservationService.TaskDeleteMyConferenceReservation(reservation);
+            ActionResult actionResult = await ReservationService.TaskDeleteMyConferenceReservation(reservation);
+
+            if (actionResult != null && actionResult.IsSuccess)
+            {
+                GetMyConferenceReservations();
+                SnackBar.Succesfull(actionResult.Message);
+            }
+            else
+            {
+                SnackBar.UnSuccesfull(actionResult.Message);
+            }
 
             RemoveFromLoadingqueue(process);
         }
@@ -278,8 +203,6 @@ namespace OfficeReserveApp.MVVM.ViewModels
             RemoveFromLoadingqueue(process);
 
         }
-
-    
 
         public async void GetConferences()
         {
@@ -300,7 +223,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             if (SelectedDay != null && SelectedConference != null)
             {
-                ExportConferenceDate ConferenceDate = new ExportConferenceDate
+                ExportConferenceDate ConferenceDate = new()
                 {
                     ConferenceID = SelectedConference.ConferenceID,
                     Date = SelectedDay.Day
@@ -308,10 +231,8 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
                 ConferenceReservations = await ReservationService.TaskGetConferenceReservations(ConferenceDate);
             }
-            
 
-            RemoveFromLoadingqueue(process);
-        
+            RemoveFromLoadingqueue(process);        
         }
 
 

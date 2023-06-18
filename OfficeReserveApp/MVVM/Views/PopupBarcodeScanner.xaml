@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+            xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+            x:Class="OfficeReserveApp.MVVM.Views.PopupBarcodeScanner"
+            CanBeDismissedByTappingOutsideOfPopup="False"
+            VerticalOptions="Center"
+            Color="Transparent"
+            Size="250,250">
+    <Frame BorderColor="{StaticResource SecondaryColor}" Padding="0" Margin="0"  CornerRadius="1">
+
+        <AbsoluteLayout>
+            <Label Margin="0" AbsoluteLayout.LayoutBounds="220, 5, 30,30" HorizontalTextAlignment="Center" ZIndex="2"
+                   StyleClass="RectButton"
+                    FontFamily="IconsSolid" 
+                    Text="&#xf410;" 
+                    FontSize="20" 
+                   TextTransform="Uppercase"
+                   TextColor="{StaticResource SecondaryColor}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ClosePopup_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Label BackgroundColor="Transparent" ZIndex="2" x:Name="ValueBarcode" FontSize="20" Text=""/>
+
+                <cv:CameraView HorizontalOptions="Center" x:Name="cameraView" 
+                       WidthRequest="250" 
+                       HeightRequest="250"
+                       CamerasLoaded="cameraView_CamerasLoaded" 
+                       BarCodeDetectionEnabled="True"
+                       BarcodeDetected="cameraView_BarcodeDetected"/>
+          
+        </AbsoluteLayout>
+    </Frame>
+</mct:Popup>

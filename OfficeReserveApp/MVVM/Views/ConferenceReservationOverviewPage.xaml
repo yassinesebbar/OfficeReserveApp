@@ -15,7 +15,6 @@
         <Frame Margin="-8,-1,-8,0" BorderColor="White" Grid.Row="1" Grid.RowSpan="2"  CornerRadius="29">
             <Grid  RowDefinitions=".12*, .15*, .35*,.15*"  BackgroundColor="white" >
 
-
                 <HorizontalStackLayout  Spacing="20">
                     <HorizontalStackLayout VerticalOptions="Center" Spacing="5">
 
@@ -26,12 +25,15 @@
                         </Image>
 
                         <Picker Margin="0, -16,0,0" 
-                                FontFamily="strong"
+                                FontFamily="StrongMediumTitle"
                             VerticalOptions="Start"
                             x:Name="picker"
                             HeightRequest="45"
                             WidthRequest="105"
+                            FontSize="16"
+                            TextColor="Black"
                             Title="VESTIGING"
+                            FontAttributes="Bold" 
                             HorizontalTextAlignment="Center"
                             ItemsSource="{Binding Offices}"
                             ItemDisplayBinding="{Binding Name}"
@@ -50,11 +52,14 @@
 
                         <Picker Margin="0, -16,0,0" 
                             VerticalOptions="Start"
-                                FontFamily="strong"
+                                FontFamily="StrongMediumTitle"
                             x:Name="ConferencePicker"
                             HeightRequest="45"
                             WidthRequest="105"
+                            FontSize="16"
                             Title="RUIMTE"
+                            TextColor="Black"
+                            FontAttributes="Bold" 
                             HorizontalTextAlignment="Center"
                             ItemsSource="{Binding FilteredConferences}"
                             ItemDisplayBinding="{Binding Name}"
@@ -64,15 +69,15 @@
 
                     <Button 
                             VerticalOptions="Start"
-                        Command="{Binding CreateReservationCommand}"
                             Margin="-10, 0,0,0"
                             WidthRequest="25"
                             HeightRequest="25"
-                            IsEnabled="{Binding ReadyToCreateReservation}"
                             FontFamily="IconsSolid"
+                            IsEnabled="{Binding CanActivateBarcode}"
                             StyleClass="RectButton"
                             FontSize="20"
-                            Text="&#xf029;"/>
+                            Text="&#xf029;"
+                        Pressed="Barcodeicon_Pressed"/>
 
 
                 </HorizontalStackLayout>

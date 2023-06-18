@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using OfficeReserveApp.MVVM.Models;
 using OfficeReserveApp.MVVM.ViewModels;
 
@@ -11,8 +12,8 @@ public partial class ConferenceReservationOverviewPage : ContentPage
 	public ConferenceReservationOverviewPage()
 	{
 		InitializeComponent();
-        ViewModel = new ConferenceReservationViewModel((Image)loadingImg);
-        BindingContext = ViewModel;
+        BindingContext = ViewModel = new ConferenceReservationViewModel((Image)loadingImg);
+
         ViewModel.UpdateData();
         ViewModel.GetDailyAvailability();
         ViewModel.GetOffices();
@@ -42,4 +43,15 @@ public partial class ConferenceReservationOverviewPage : ContentPage
         }
 
     }
+
+    private void Barcodeicon_Pressed(object sender, EventArgs e)
+    {
+/*        Pressing to many times on barcode will lead to a crash of application. 
+Inorder to prevent that i have disabled the button after pressing it once
+*/        
+        ViewModel.CanActivateBarcode = false;
+        this.ShowPopup(new PopupBarcodeScanner(ViewModel));
+    }
+
+  
 }

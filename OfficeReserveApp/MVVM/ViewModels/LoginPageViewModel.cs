@@ -22,5 +22,10 @@ namespace OfficeReserveApp.MVVM.ViewModel
             Login(LoginRequest);
         }
 
+        public Boolean LoginIsSuccessful()
+        {
+            return AuthenticationService.UserIsAuthenticated();
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using OfficeReserveApp.MVVM.Models;
+﻿using OfficeReserveApp.DTOModels;
+using OfficeReserveApp.MVVM.Models;
 using OfficeReserveApp.Services;
 using PropertyChanged;
 using System;
@@ -16,7 +17,6 @@ namespace OfficeReserveApp.MVVM.ViewModels
     {
         public List<Reservation> OfficeReservations { get; set; }
         public List<DailyAvailability> OfficeDailyAvailabilities { get; set; }
-        private ReservationService ReservationService { get; set; }
         public DailyAvailability SelectedDay { get; set; }
         public Office OfficeInfo { get; set; }
 
@@ -61,7 +61,16 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             AddToLoadingqueue(process);
 
-            await ReservationService.TaskUpdateOffice(OfficeInfo);
+            ActionResult actionResult = await ReservationService.TaskUpdateOffice(OfficeInfo);
+
+            if (actionResult != null && actionResult.IsSuccess)
+            {
+                SnackBar.Succesfull(actionResult.Message);
+            }
+            else
+            {
+                SnackBar.UnSuccesfull(actionResult.Message);
+            }
 
             RemoveFromLoadingqueue(process);
         }
@@ -76,8 +85,8 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             if(OfficeDailyAvailabilities != null && OfficeDailyAvailabilities.Count > 0)
             {
-                OfficeDailyAvailabilities.OrderBy(o => o.Day);
-                SelectedDay = OfficeDailyAvailabilities.First();
+                
+                SelectedDay = OfficeDailyAvailabilities.OrderBy(o => o.Day).First();
             }
                 
 
@@ -91,7 +100,16 @@ namespace OfficeReserveApp.MVVM.ViewModels
             AddToLoadingqueue(process);
 
             Reservation reservation = (Reservation)obj;
-            await ReservationService.TaskDeleteReservation(reservation);
+            ActionResult actionResult = await ReservationService.TaskDeleteReservation(reservation);
+
+            if (actionResult != null && actionResult.IsSuccess)
+            {
+                SnackBar.Succesfull(actionResult.Message);
+            }
+            else
+            {
+                SnackBar.UnSuccesfull(actionResult.Message);
+            }
 
             RemoveFromLoadingqueue(process);
 
@@ -102,8 +120,6 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             GetDailyAvailability();
             GetOfficeReservations();
-
-
         }
 
     }

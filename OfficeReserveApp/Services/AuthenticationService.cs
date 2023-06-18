@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace OfficeReserveApp.Services
 {
-    public class AuthenticationService : BaseService 
-    { 
-    
+    public class AuthenticationService
+    {
+        protected HttpClient Client { get;  set; } = App.client;
 
         public User User { get; private set; }
 

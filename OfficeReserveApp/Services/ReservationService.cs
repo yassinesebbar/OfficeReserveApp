@@ -14,8 +14,10 @@ namespace OfficeReserveApp.Services
 
     [AddINotifyPropertyChangedInterface]
 
-   public class ReservationService : BaseService
+   public class ReservationService
     {
+
+        private HttpClient Client { get;  set; } = App.client;
 
         private ByteArrayContent ObjectToContentHeader(object obj)
         {
@@ -25,6 +27,20 @@ namespace OfficeReserveApp.Services
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             return byteContent;
+        }
+
+        private async Task<ActionResult> DeserializeActionResult(HttpContent ActionResultContent)
+        {
+            ActionResult ActionResult = new ActionResult();
+
+
+            using (var responseStream = await ActionResultContent.ReadAsStreamAsync())
+            {
+                var data = await JsonSerializer.DeserializeAsync<ActionResult>(responseStream);
+                ActionResult = data;
+            }
+
+            return ActionResult;
         }
 
         private async Task<List<Reservation>> DeserializeReservations(HttpContent reservationsContent)
@@ -124,8 +140,9 @@ namespace OfficeReserveApp.Services
             return Office;
         }
 
-        public async Task TaskUpdateOffice(Office office)
+        public async Task<ActionResult> TaskUpdateOffice(Office office)
         {
+            ActionResult actionResult = new ActionResult();
             var byteContent = ObjectToContentHeader(office);
 
             var response =
@@ -133,8 +150,10 @@ namespace OfficeReserveApp.Services
 
             if (response.IsSuccessStatusCode)
             {
-              // give success
+                actionResult = await DeserializeActionResult(response.Content);
             };
+
+            return actionResult;
         }
         
         public async Task<List<Office>> TaskGetOffices()
@@ -233,86 +252,81 @@ namespace OfficeReserveApp.Services
         }
 
 
-        public async Task<List<Reservation>> TaskDeleteMyReservation(Reservation reservation)
+        public async Task<ActionResult> TaskDeleteMyReservation(Reservation reservation)
         {
-            List<Reservation> OfficeReservations = new List<Reservation>();
+            ActionResult actionResult = new ActionResult();
     
             var byteContent = ObjectToContentHeader(reservation);
 
 
             var response =
-               await Client.PostAsync(Constants.DeleteMyReservationEndpoint, byteContent);
+               await Client.PostAsync(Constants.DeleteMyOfficeReservationEndpoint, byteContent);
 
             if (response.IsSuccessStatusCode)
             {
-                if (response.IsSuccessStatusCode)
-                {
-                    OfficeReservations = await DeserializeReservations(response.Content);
-                }
+               actionResult = await DeserializeActionResult(response.Content);
             }
 
-            return OfficeReservations;
+            return actionResult;
         }
         
 
-        public async Task<List<Reservation>> TaskDeleteMyConferenceReservation(Reservation reservation)
+        public async Task<ActionResult> TaskDeleteMyConferenceReservation(Reservation reservation)
         {
-            List<Reservation> OfficeReservations = new List<Reservation>();
-    
-            var byteContent = ObjectToContentHeader(reservation);
+            ActionResult actionResult = new ActionResult();
 
+            var byteContent = ObjectToContentHeader(reservation);
 
             var response =
                await Client.PostAsync(Constants.DeleteMyConferenceReservations, byteContent);
 
             if (response.IsSuccessStatusCode)
             {
-                if (response.IsSuccessStatusCode)
-                {
-                    OfficeReservations = await DeserializeReservations(response.Content);
-                }
+                actionResult = await DeserializeActionResult(response.Content);
             }
 
-            return OfficeReservations;
+            return actionResult;
         }
 
 
-            public async Task TaskDeleteReservation(Reservation reservation)
-            {
-    
-                var byteContent = ObjectToContentHeader(reservation);
-
-
-                var response =
-                   await Client.PostAsync(Constants.DeleteReservationEndpoint, byteContent);
-
-            }
-
-        public async Task<List<Reservation>> TaskCreateReservation(Reservation reservation)
+        public async Task<ActionResult> TaskDeleteReservation(Reservation reservation)
         {
-            List<Reservation> OfficeReservations = new List<Reservation>();
-          
+            ActionResult actionResult = new ActionResult();
+
+
             var byteContent = ObjectToContentHeader(reservation);
 
-     
+
+            var response =
+                await Client.PostAsync(Constants.DeleteReservationEndpoint, byteContent);
+            if (response.IsSuccessStatusCode)
+            {
+                actionResult = await DeserializeActionResult(response.Content);
+            }
+
+            return actionResult;
+        }
+
+        public async Task<ActionResult> TaskCreateReservation(Reservation reservation)
+        {
+            ActionResult actionResult = new ActionResult();
+
+            var byteContent = ObjectToContentHeader(reservation);
+
             var response =
                await Client.PostAsync(Constants.CreateReservationEndpoint, byteContent);
 
             if (response.IsSuccessStatusCode)
             {
-                if (response.IsSuccessStatusCode)
-                {
-
-                    OfficeReservations = await DeserializeReservations(response.Content);
-                }
+                actionResult = await DeserializeActionResult(response.Content);
             }
 
-            return OfficeReservations;
+            return actionResult;
         }
         
-        public async Task<List<Reservation>> TaskCreateConferenceReservation(Reservation reservation)
+        public async Task<ActionResult> TaskCreateConferenceReservation(Reservation reservation)
         {
-            List<Reservation> OfficeReservations = new List<Reservation>();
+            ActionResult actionResult = new ActionResult();
           
             var byteContent = ObjectToContentHeader(reservation);
 
@@ -322,14 +336,10 @@ namespace OfficeReserveApp.Services
 
             if (response.IsSuccessStatusCode)
             {
-                if (response.IsSuccessStatusCode)
-                {
-
-                    OfficeReservations = await DeserializeReservations(response.Content);
-                }
+                actionResult = await DeserializeActionResult(response.Content);   
             }
 
-            return OfficeReservations;
+            return actionResult;
         }
 
 

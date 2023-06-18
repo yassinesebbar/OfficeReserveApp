@@ -6,13 +6,12 @@ namespace OfficeReserveApp.MVVM.Views;
 public partial class OfficeManagementOverviewPage : ContentPage
 {
 
-	public OfficeManagementViewModel ViewModel { get; set; }
+	private OfficeManagementViewModel ViewModel { get; set; }
 
     public OfficeManagementOverviewPage()
 	{
 		InitializeComponent();
-        ViewModel = new OfficeManagementViewModel((Image)loadingImg);
-        BindingContext = ViewModel;
+        BindingContext = ViewModel = new OfficeManagementViewModel((Image)loadingImg);
 
         ViewModel.UpdateData();
         ViewModel.GetOfficeInfo();

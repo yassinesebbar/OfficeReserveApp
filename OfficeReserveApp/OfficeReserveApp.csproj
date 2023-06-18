@@ -71,6 +71,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Camera.MAUI" Version="1.4.4" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
@@ -83,6 +84,9 @@
 	  </Compile>
 	  <Compile Update="MVVM\Views\OfficeReservationOverviewPage.xaml.cs">
 	    <DependentUpon>OfficeReservationOverviewPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="MVVM\Views\PopUpBarcodeScanner.xaml.cs">
+	    <DependentUpon>PopupBarcodeScanner.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="MVVM\Views\ProfileOverviewPage.xaml.cs">
 	    <DependentUpon>ProfileOverviewPage.xaml</DependentUpon>
@@ -100,6 +104,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\OfficeReservationOverviewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\PopupBarcodeScanner.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\PopupChangeOffice.xaml">

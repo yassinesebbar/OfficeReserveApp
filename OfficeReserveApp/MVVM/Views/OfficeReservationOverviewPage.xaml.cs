@@ -14,8 +14,7 @@ public partial class OfficeReservationOverviewPage : ContentPage
 	{
 		InitializeComponent();
         // LoadingIMG Hack because Maui image animation  not working with proper binding  is an issue not solved by microsoft// 
-        ViewModel = new OfficeReservationViewModel((Image)loadingImg);
-        BindingContext = ViewModel;
+        BindingContext = ViewModel = new OfficeReservationViewModel((Image)loadingImg);
 
         ViewModel.UpdateData();
       

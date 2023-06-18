@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Alerts;
 using OfficeReserveApp.MVVM.Models;
 using OfficeReserveApp.MVVM.ViewModel;
 
@@ -5,44 +6,48 @@ namespace OfficeReserveApp.MVVM.Views;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage()
+    LoginPageViewModel ViewModel = new LoginPageViewModel();   
+
+    public LoginPage()
 	{
 		InitializeComponent();
-		BindingContext = new LoginPageViewModel();
+		BindingContext =  ViewModel = new LoginPageViewModel();
 	}
     protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        var LoginPageViewModel = (LoginPageViewModel)BindingContext;
-        LoginPageViewModel.LoginRequest = new LoginRequestModel();
+        ViewModel.LoginRequest = new LoginRequestModel();
     }
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-        var pageViewObject = (LoginPageViewModel)BindingContext;
-        pageViewObject.LoginAction();
-
-        pageViewObject.RouteBasedOnIdenitity();
+        ViewModel.LoginAction();
+        if (ViewModel.LoginIsSuccessful())
+        {
+            ViewModel.RouteBasedOnIdenitity();
+        }
+        else
+        {
+            DisplayAlert("Login mislukt", "Het ingevoerde gebruikersnaam of wachtwoord is onjuist", "Ok");
+        }
     }
 
     private void Button_Clicked1(object sender, EventArgs e)
     {
-        var pageViewObject = (LoginPageViewModel)BindingContext;
-        pageViewObject.LoginRequest.Password = "Semperfi123!@#";
-        pageViewObject.LoginRequest.UserName = "medewerker";
-        pageViewObject.LoginAction();
+        ViewModel.LoginRequest.Password = "Avansbreda1!";
+        ViewModel.LoginRequest.UserName = "medewerker";
+        ViewModel.LoginAction();
 
-        pageViewObject.RouteBasedOnIdenitity();
+        ViewModel.RouteBasedOnIdenitity();
     }
 
     private void Button_Clicked2(object sender, EventArgs e)
     {
-        var pageViewObject = (LoginPageViewModel)BindingContext;
-        pageViewObject.LoginRequest.Password = "Semperfi123!@#";
-        pageViewObject.LoginRequest.UserName = "officemedewerkerutrecht";
-        pageViewObject.LoginAction();
+        ViewModel.LoginRequest.Password = "Avansbreda2@";
+        ViewModel.LoginRequest.UserName = "officemedewerkerutrecht";
+        ViewModel.LoginAction();
 
-        pageViewObject.RouteBasedOnIdenitity();
+        ViewModel.RouteBasedOnIdenitity();
     }
 }

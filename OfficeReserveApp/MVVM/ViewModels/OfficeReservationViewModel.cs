@@ -1,4 +1,5 @@
-﻿using OfficeReserveApp.MVVM.Models;
+﻿using OfficeReserveApp.DTOModels;
+using OfficeReserveApp.MVVM.Models;
 using OfficeReserveApp.Services;
 using PropertyChanged;
 using System;
@@ -17,12 +18,8 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
         public List<Reservation> MyOfficeReservations { get; set; }
         public List<DailyAvailability> OfficeDailyAvailabilities { get; set; }
-        private ReservationService ReservationService { get; set; }
         public DailyAvailability SelectedDay { get; set; }
 
-        /*Selected start/endtime for reservations*/
-        public TimeSpan StartTimeSpan { get; set; }
-        public TimeSpan EndTimeSpan { get; set; }
 
         public ICommand DeleteOfficeReservationCommand { get; set; }
         public ICommand CreateReservationCommand { get; set; }
@@ -57,17 +54,31 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
         public async void CreateReservation()
         {
+
             string process = Constants.CreateOffieceReservation_Process;
 
             AddToLoadingqueue(process);
 
-            Reservation NewReservation = new Reservation();
-            NewReservation.StartTime = new DateTime(SelectedDay.Day.Ticks + StartTimeSpan.Ticks);
-            NewReservation.EndTime = new DateTime(SelectedDay.Day.Ticks + EndTimeSpan.Ticks);
-            NewReservation.Date = SelectedDay.Day;
+            Reservation NewReservation = new()
+            {
+                StartTime = new(SelectedDay.Day.Ticks + StartTimeSpan.Ticks),
+                EndTime = new(SelectedDay.Day.Ticks + EndTimeSpan.Ticks),
+                Date = SelectedDay.Day
+            };
+
             if (ReservationIsValid(NewReservation))
             {
-               MyOfficeReservations = await ReservationService.TaskCreateReservation(NewReservation);
+
+                ActionResult actionResult = await ReservationService.TaskCreateReservation(NewReservation);
+                if (actionResult != null && actionResult.IsSuccess)
+                {
+                    GetMyOfficeReservations();
+                    SnackBar.Succesfull(actionResult.Message);
+                }
+                else
+                {
+                    SnackBar.UnSuccesfull(actionResult.Message);
+                }
             }
 
             RemoveFromLoadingqueue(process);
@@ -80,7 +91,16 @@ namespace OfficeReserveApp.MVVM.ViewModels
             AddToLoadingqueue(process);
 
             Reservation reservation = (Reservation)obj;
-            MyOfficeReservations = await ReservationService.TaskDeleteMyReservation(reservation);
+            ActionResult actionResult = await ReservationService.TaskDeleteMyReservation(reservation);
+            if (actionResult != null && actionResult.IsSuccess)
+            {
+                GetMyOfficeReservations();
+                SnackBar.Succesfull(actionResult.Message);
+            }
+            else
+            {
+                SnackBar.UnSuccesfull(actionResult.Message);
+            }
 
             RemoveFromLoadingqueue(process);
 
@@ -118,10 +138,13 @@ namespace OfficeReserveApp.MVVM.ViewModels
         public void CheckDayIsReservable()
         {
             if (SelectedDay.Status == StatusAvailability.Closed)
+            {
                 SelectedDay = null;
+
+            }
         }
 
-        public Boolean ReservationIsValid(Reservation reservation)
+        public static Boolean ReservationIsValid(Reservation reservation)
         {
             if (reservation.StartTime < DateTime.Now)
             {

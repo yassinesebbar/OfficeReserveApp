@@ -10,8 +10,7 @@ public partial class PopupChangeOffice : Popup
 	public PopupChangeOffice(OfficeManagementViewModel OverviewModel)
 	{
 		InitializeComponent();
-		BindingContext = OverviewModel;
-        ViewModel = OverviewModel;
+		BindingContext = ViewModel = OverviewModel;
 
     }
 
@@ -26,4 +25,6 @@ public partial class PopupChangeOffice : Popup
         ViewModel.UpdateData();
         Close();
     }
+
+
 }

@@ -26,10 +26,6 @@
     </Style>
 
 
-    <Style Class="Icon" TargetType="Label">
-        <Setter Property="FontFamily" Value="FaBrands" />
-    </Style>
-
     <Style Class="HeaderTitle" TargetType="Label">
         <Setter Property="FontSize" Value="Small" />
         <Setter Property="TextColor" Value="{StaticResource White}" />

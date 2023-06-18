@@ -11,8 +11,9 @@
     <Frame BorderColor="{StaticResource SecondaryColor}" Padding="20">
         <Grid RowDefinitions=".2*,*">
             <Label HorizontalOptions="End"
+                   StyleClass="RectButton"
                     FontFamily="IconsSolid" 
-                    Text="&#xf00d;" 
+                    Text="&#xf410;" 
                     FontSize="20" >
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ClosePopup_Tapped"/>

@@ -1,15 +1,10 @@
-﻿using OfficeReserveApp.MVVM.Models;
+﻿
+using OfficeReserveApp.MVVM.Models;
 using OfficeReserveApp.MVVM.Views;
 using OfficeReserveApp.Services;
 using PropertyChanged;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Xml.Linq;
+
 
 namespace OfficeReserveApp.MVVM.ViewModels
 {
@@ -20,15 +15,20 @@ namespace OfficeReserveApp.MVVM.ViewModels
     {
 
         public User CurrentUser { get; private set; }
+        protected ReservationService ReservationService { get; set; }
 
-      /*  Maui has an bug with enableing  animation of image through binding. I had to retrieve the image from view and manipulate it from view model.*/
+        /*  Maui has an bug with enableing  animation of image through binding. I had to retrieve the image from view and manipulate it from view model.*/
         private Image LoadingImage;
         protected AuthenticationService AuthenticationService { get; private set; }
         protected HttpClient Client { get; private set; } = App.client;
         public ICommand LogoutCommand => new Command(() => { Logout(); });
 
-/*        while array is niet empty animate the loading image
-*/        public Boolean IsLoading
+        /*Selected start/endtime for reservations*/
+        public TimeSpan StartTimeSpan { get; set; }
+        public TimeSpan EndTimeSpan { get; set; }
+
+        /*        while array is not empty animate the loading image */
+        public Boolean IsLoading
         {
             get {
                 return Loadingqueue.Count > 0;
@@ -54,7 +54,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
             }
         }
 
-        public void RemoveFromLoadingqueue(string process)
+        public  void RemoveFromLoadingqueue(string process)
         {
             Loadingqueue.Remove(process);
             if (LoadingImage != null)
@@ -64,6 +64,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
         }
 
     
+
         public void Logout()
         {
             AuthenticationService.Logout();
@@ -77,7 +78,8 @@ namespace OfficeReserveApp.MVVM.ViewModels
             RouteBasedOnIdenitity();
         }
 
-        public void RouteBasedOnIdenitity()
+/*        when the user logs in he will be routed based off identity
+*/        public void RouteBasedOnIdenitity()
         {
             if (AuthenticationService.UserIsAuthenticated())
             {
@@ -101,7 +103,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
             }
         }
 
-        public Boolean UserIsAuthenticated()
+        private Boolean UserIsAuthenticated()
         {
             return AuthenticationService.UserIsAuthenticated();
         }
