@@ -2,8 +2,6 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-
-
     <Color x:Key="MainColor">#3d5377</Color>
     <Color x:Key="MainColor50Opac">#7a3d5377</Color>
     <Color x:Key="SecondaryColor">#bcd433</Color>
@@ -18,21 +16,6 @@
     <Style Class="TopRectangle" TargetType="RoundRectangle">
         <Setter Property="Margin" Value="-01,-01,-01,-10" />
         <Setter Property="Fill" Value="{StaticResource MainColor}" />
-    </Style>
-
-    <Style Class="Header" TargetType="VerticalStackLayout">
-        <Setter Property="Margin" Value="15" />
-        <Setter Property="VerticalOptions" Value="Center" />
-    </Style>
-
-
-    <Style Class="HeaderTitle" TargetType="Label">
-        <Setter Property="FontSize" Value="Small" />
-        <Setter Property="TextColor" Value="{StaticResource White}" />
-    </Style>
-    <Style Class="HeaderSubTitle" TargetType="Label">
-        <Setter Property="FontSize" Value="Large" />
-        <Setter Property="TextColor" Value="{StaticResource White}" />
     </Style>
 
 
@@ -56,25 +39,6 @@
         Class="Padding10"
         TargetType="Layout">
         <Setter Property="Padding" Value="10" />
-    </Style>
-    <Style
-        ApplyToDerivedTypes="True"
-        Class="MarginT15"
-        TargetType="View">
-        <Setter Property="Margin" Value="0,15,0,0" />
-    </Style>
-
-    <Style Class="FrameBorder" TargetType="Frame">
-        <Setter Property="HeightRequest" Value="50" />
-        <Setter Property="Padding" Value="10,5" />
-        <Setter Property="BorderColor" Value="{StaticResource SecondaryColor}" />
-    </Style>
-
-    <Style
-        ApplyToDerivedTypes="True"
-        Class="Margin15"
-        TargetType="Layout">
-        <Setter Property="Margin" Value="15" />
     </Style>
 
     <Style Class="StrongTitle" TargetType="Label">
@@ -122,27 +86,9 @@
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
-
-    <Style TargetType="TabbedPage">
-        <Setter Property="BarBackgroundColor" Value="{StaticResource MainColor}" />
-        <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
-        <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
-        <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
-    </Style>
-
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
         <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource MainColor}" />
         <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource SecondaryColor}" />
-    </Style>
-
-    <Style x:Key="card" TargetType="Frame">
-        <Setter Property="Padding" Value="0,10,0,10"/>
-        <Setter Property="BackgroundColor" Value="#1Ac7c9c9"/>
-        <Setter Property="BorderColor" Value="Transparent"/>
-        <Setter Property="CornerRadius" Value="5"/>
-        <Setter Property="HeightRequest" Value="150"/>
-        <Setter Property="WidthRequest" Value="100"/>
-        <Setter Property="Opacity" Value=".1"/>
     </Style>
 
 </ResourceDictionary>

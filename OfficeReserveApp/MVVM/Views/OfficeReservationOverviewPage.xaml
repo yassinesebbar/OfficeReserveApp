@@ -14,7 +14,7 @@
     <Grid RowDefinitions=".07*,.10*,.15*,.60*">
         <RoundRectangle  StyleClass="TopRectangle"/>
         <Image Margin="0" HorizontalOptions="CenterAndExpand" Source="edenbluelogo.png" WidthRequest="80"/>
-        <Frame Margin="-8,-1,-8,0" BorderColor="White" Grid.Row="1" Grid.RowSpan="2"  CornerRadius="29">
+        <Frame StyleClass="" Margin="-8,-1,-8,0" BorderColor="White" Grid.Row="1" Grid.RowSpan="2"  CornerRadius="29">
             <Grid  RowDefinitions=".35*,.23*"  BackgroundColor="white" >
                 <CollectionView ItemsSource="{Binding OfficeDailyAvailabilities}"
                                 SelectionMode="Single"

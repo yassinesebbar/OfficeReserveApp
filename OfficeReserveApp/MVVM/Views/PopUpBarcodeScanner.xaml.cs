@@ -40,7 +40,7 @@ public partial class PopupBarcodeScanner : Popup
 		MainThread.BeginInvokeOnMainThread(async () =>
 		{
 /*			ValueBarcode.Text = $"{args.Result[0].BarcodeFormat} : {args.Result[0].Text}";
-*/			int num = 0;
+*/			var num = 0;
 
 			if(Int32.TryParse(args.Result[0].Text, out num)){
 				if (ViewModel.GetConferenceById(num) != null)

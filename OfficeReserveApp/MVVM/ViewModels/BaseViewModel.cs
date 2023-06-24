@@ -18,7 +18,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
         protected ReservationService ReservationService { get; set; }
 
         /*  Maui has an bug with enableing  animation of image through binding. I had to retrieve the image from view and manipulate it from view model.*/
-        private Image LoadingImage;
+        private readonly Image LoadingImage;
         protected AuthenticationService AuthenticationService { get; private set; }
         protected HttpClient Client { get; private set; } = App.client;
         public ICommand LogoutCommand => new Command(() => { Logout(); });
