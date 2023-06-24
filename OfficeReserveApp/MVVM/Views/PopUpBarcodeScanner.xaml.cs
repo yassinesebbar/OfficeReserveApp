@@ -45,6 +45,7 @@ public partial class PopupBarcodeScanner : Popup
 			if(Int32.TryParse(args.Result[0].Text, out num)){
 				if (ViewModel.GetConferenceById(num) != null)
 				{
+					BarcodeFrame.BorderColor = Color.FromArgb("#fabcd433");
                     ViewModel.SetConferenceByConferenceId(num);
                     ClosePopup();
                 }

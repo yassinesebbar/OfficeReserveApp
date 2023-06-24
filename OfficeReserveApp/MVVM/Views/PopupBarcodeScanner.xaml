@@ -8,7 +8,7 @@
             VerticalOptions="Center"
             Color="Transparent"
             Size="250,250">
-    <Frame BorderColor="{StaticResource SecondaryColor}" Padding="0" Margin="0"  CornerRadius="1">
+    <Frame x:Name="BarcodeFrame" BorderColor="{StaticResource SecondaryColor}" Padding="0" Margin="0"  CornerRadius="1">
 
         <AbsoluteLayout>
             <Label Margin="0" AbsoluteLayout.LayoutBounds="220, 5, 30,30" HorizontalTextAlignment="Center" ZIndex="2"

@@ -103,7 +103,7 @@
                                      FontFamily="Regular" 
                                      Margin="3,0,0,0" 
                                      HorizontalOptions="CenterAndExpand" 
-                                     FontSize="30" 
+                                     FontSize="30"
                                      VerticalOptions="CenterAndExpand" />
 
                             <Label TextColor="#424242"  
@@ -118,7 +118,7 @@
                                     TextColor="#424242"  
                                     x:Name="TimeEnd" 
                                     FontFamily="Regular" 
-                                    FontSize="30" 
+                                    FontSize="30"
                                     VerticalOptions="CenterAndExpand"/>
 
                         </HorizontalStackLayout>

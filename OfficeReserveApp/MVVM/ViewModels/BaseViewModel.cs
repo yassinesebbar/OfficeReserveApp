@@ -23,9 +23,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
         protected HttpClient Client { get; private set; } = App.client;
         public ICommand LogoutCommand => new Command(() => { Logout(); });
 
-        /*Selected start/endtime for reservations*/
-        public TimeSpan StartTimeSpan { get; set; }
-        public TimeSpan EndTimeSpan { get; set; }
+  
 
         /*        while array is not empty animate the loading image */
         public Boolean IsLoading

@@ -27,14 +27,17 @@ namespace OfficeReserveApp.MVVM.ViewModels
         public Conference SelectedConference { get; set; }
         public Office SelectedOffice { get; set; }
         public Boolean CanActivateBarcode = true;
-
+        /*Selected start/endtime for reservations*/
+        public TimeSpan StartTimeSpan { get; set; }
+        public TimeSpan EndTimeSpan { get; set; }
         public ICommand DeleteConferenceReservationCommand { get; set; }
         public ICommand CreateReservationCommand { get; set; }
         public ICommand UpdateViewCommand { get; set; }
 
         public Boolean SelectConferenceIsEnabled { get {
                 return SelectedOffice != null && FilteredConferences.Count > 0;
-            } }
+            } 
+        }
 
         public Boolean SelectDayIsEnabled
         {
@@ -95,16 +98,8 @@ namespace OfficeReserveApp.MVVM.ViewModels
             {
 
                 ActionResult actionResult = await ReservationService.TaskCreateConferenceReservation(NewReservation);
-                if (actionResult != null && actionResult.IsSuccess)
-                {
-                    GetMyConferenceReservations();
-                    SnackBar.Succesfull(actionResult.Message);
-                }
-                else
-                {
-                    SnackBar.UnSuccesfull(actionResult.Message);
-                }
-
+                SnackBar.Result(actionResult);
+                GetMyConferenceReservations();
             }
 
             RemoveFromLoadingqueue(process);
@@ -179,15 +174,8 @@ namespace OfficeReserveApp.MVVM.ViewModels
             Reservation reservation = (Reservation)obj;
             ActionResult actionResult = await ReservationService.TaskDeleteMyConferenceReservation(reservation);
 
-            if (actionResult != null && actionResult.IsSuccess)
-            {
-                GetMyConferenceReservations();
-                SnackBar.Succesfull(actionResult.Message);
-            }
-            else
-            {
-                SnackBar.UnSuccesfull(actionResult.Message);
-            }
+            SnackBar.Result(actionResult);
+            GetMyConferenceReservations();
 
             RemoveFromLoadingqueue(process);
         }
@@ -247,7 +235,6 @@ namespace OfficeReserveApp.MVVM.ViewModels
             RemoveFromLoadingqueue(process);
         }
 
-
         public void FilterConferences()
         {
             if (SelectedOffice != null && Conferences != null && Conferences.Count > 0 )
@@ -257,7 +244,5 @@ namespace OfficeReserveApp.MVVM.ViewModels
             }
         }
 
-
-        
     }
 }

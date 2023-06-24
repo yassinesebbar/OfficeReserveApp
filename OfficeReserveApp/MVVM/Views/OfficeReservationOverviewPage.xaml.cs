@@ -33,4 +33,13 @@ public partial class OfficeReservationOverviewPage : ContentPage
         }
        
     }
+
+    private void TimeStart_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (ViewModel != null)
+        {
+            Boolean boolean = ViewModel.ReadyToCreateReservation;
+        }
+        
+    }
 }

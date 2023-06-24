@@ -12,7 +12,7 @@ namespace OfficeReserveApp.MVVM.Models
     {
         public static void CustomMessage(string message, Color BackgroundColor, string font, Color TextColor)
         {
-            var snackbar = CommunityToolkit.Maui.Alerts.Snackbar.Make(message, null, "Ok", TimeSpan.FromSeconds(5), new CommunityToolkit.Maui.Core.SnackbarOptions
+            var snackbar = CommunityToolkit.Maui.Alerts.Snackbar.Make(message, null, "OK", TimeSpan.FromSeconds(5), new CommunityToolkit.Maui.Core.SnackbarOptions
             {
                 BackgroundColor = BackgroundColor,
                 Font = Microsoft.Maui.Font.OfSize(font, 17, FontWeight.Bold, Microsoft.Maui.FontSlant.Default, true),
@@ -32,6 +32,26 @@ namespace OfficeReserveApp.MVVM.Models
         public static void Succesfull(string message)
         {
             SnackBar.CustomMessage(message, Color.FromArgb("#fabcd433"), "Regular", Colors.White);
+        }
+
+        public static void Result(ActionResult actionResult)
+        {
+            if (actionResult != null)
+            {
+                if (actionResult.IsSuccess)
+                {
+                    SnackBar.Succesfull(actionResult.Message);
+                }
+                else
+                {
+                    SnackBar.UnSuccesfull(actionResult.Message);
+                }
+            }
+            else
+            {
+                SnackBar.UnSuccesfull("Oei, er is iets mis gegaan!");
+            }
+         
         }
 
     }

@@ -10,31 +10,33 @@
         <Image Margin="0,1.2,0,0" HorizontalOptions="CenterAndExpand" Source="edenbluelogo.png" WidthRequest="80"/>
         <Frame Margin="-8,0.8,-8,0" BorderColor="Transparent" Grid.Row="1" Grid.RowSpan="2"  CornerRadius="29">
             <StackLayout >
+                <HorizontalStackLayout  Margin="25">
+                    <Image VerticalOptions="StartAndExpand" WidthRequest="50" HorizontalOptions="CenterAndExpand" Margin="0,15,0,0" Source="user.png">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource SecondaryColor}" />
+                        </Image.Behaviors>
+                    </Image>
+                    <VerticalStackLayout Spacing="25" VerticalOptions="StartAndExpand" Margin="25,25,10,10">
+                        <VerticalStackLayout Spacing="3">
+                            <Label FontSize="16" TextTransform="Uppercase" HorizontalTextAlignment="Start" StyleClass="StrongMediumTitle" Text="Gebruikersnaam"/>
+                            <Label FontSize="16"  HorizontalTextAlignment="Start" StyleClass="ListFont" Text="{Binding CurrentUser.Username}"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="3">
+                            <Label FontSize="16" TextTransform="Uppercase" HorizontalTextAlignment="Start" StyleClass="StrongMediumTitle" Text="Naam"/>
+                            <Label FontSize="16"  HorizontalTextAlignment="Start" StyleClass="ListFont" Text="{Binding CurrentUser.Fullname}"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="3">
+                            <Label FontSize="16" TextTransform="Uppercase" HorizontalTextAlignment="Start" StyleClass="StrongMediumTitle" Text="Rol"/>
+                            <Label FontSize="16"  HorizontalTextAlignment="Start" StyleClass="ListFont" Text="{Binding CurrentUser.Rol}"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
 
-                <Image VerticalOptions="Start" WidthRequest="75" HorizontalOptions="CenterAndExpand" Margin="0,15,0,0" Source="user.png">
-                    <Image.Behaviors>
-                        <toolkit:IconTintColorBehavior TintColor="{StaticResource SecondaryColor}" />
-                    </Image.Behaviors>
-                </Image>
-                <StackLayout Spacing="25" VerticalOptions="CenterAndExpand" Margin="25,50,10,10">
-                    <VerticalStackLayout Spacing="3">
-                        <Label FontSize="18" TextTransform="Uppercase" HorizontalTextAlignment="Start" StyleClass="StrongMediumTitle" Text="Gebruikersnaam"/>
-                        <Label FontSize="18"  HorizontalTextAlignment="Start" StyleClass="ListFont" Text="{Binding CurrentUser.Username}"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Spacing="3">
-                        <Label FontSize="18" TextTransform="Uppercase" HorizontalTextAlignment="Start" StyleClass="StrongMediumTitle" Text="Naam"/>
-                        <Label FontSize="18"  HorizontalTextAlignment="Start" StyleClass="ListFont" Text="{Binding CurrentUser.Fullname}"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout Spacing="3">
-                        <Label FontSize="18" TextTransform="Uppercase" HorizontalTextAlignment="Start" StyleClass="StrongMediumTitle" Text="Rol"/>
-                        <Label FontSize="18"  HorizontalTextAlignment="Start" StyleClass="ListFont" Text="{Binding CurrentUser.Rol}"/>
-                    </VerticalStackLayout>
-                </StackLayout>
-           
-
-                <Button  VerticalOptions="EndAndExpand"  BackgroundColor="{StaticResource MainColor}" TextColor="White" Text="Uitloggen" Command="{Binding LogoutCommand}"/>
+                </HorizontalStackLayout>
+                <Button VerticalOptions="EndAndExpand" BackgroundColor="{StaticResource MainColor}" TextColor="White" Text="Uitloggen" Command="{Binding LogoutCommand}"/>
 
             </StackLayout>
+            
+            
         </Frame>
     </Grid>
 

@@ -63,14 +63,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             ActionResult actionResult = await ReservationService.TaskUpdateOffice(OfficeInfo);
 
-            if (actionResult != null && actionResult.IsSuccess)
-            {
-                SnackBar.Succesfull(actionResult.Message);
-            }
-            else
-            {
-                SnackBar.UnSuccesfull(actionResult.Message);
-            }
+            SnackBar.Result(actionResult);
 
             RemoveFromLoadingqueue(process);
         }
@@ -102,14 +95,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
             Reservation reservation = (Reservation)obj;
             ActionResult actionResult = await ReservationService.TaskDeleteReservation(reservation);
 
-            if (actionResult != null && actionResult.IsSuccess)
-            {
-                SnackBar.Succesfull(actionResult.Message);
-            }
-            else
-            {
-                SnackBar.UnSuccesfull(actionResult.Message);
-            }
+            SnackBar.Result(actionResult);
 
             RemoveFromLoadingqueue(process);
 
