@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfficeReserveApp", "OfficeReserveApp\OfficeReserveApp.csproj", "{539AE54E-6C98-47E7-91D0-7F18601825DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestOfficeReserveApp", "UnitTestOfficeReserveApp\UnitTestOfficeReserveApp.csproj", "{C8536FA5-C70B-49AF-B558-1031D461FACC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{539AE54E-6C98-47E7-91D0-7F18601825DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{539AE54E-6C98-47E7-91D0-7F18601825DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{539AE54E-6C98-47E7-91D0-7F18601825DB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C8536FA5-C70B-49AF-B558-1031D461FACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8536FA5-C70B-49AF-B558-1031D461FACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8536FA5-C70B-49AF-B558-1031D461FACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8536FA5-C70B-49AF-B558-1031D461FACC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
