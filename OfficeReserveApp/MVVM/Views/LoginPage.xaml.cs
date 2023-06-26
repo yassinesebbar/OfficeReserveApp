@@ -1,18 +1,17 @@
-using CommunityToolkit.Maui.Alerts;
 using OfficeReserveApp.MVVM.Models;
-using OfficeReserveApp.MVVM.ViewModel;
+using OfficeReserveApp.MVVM.ViewModels;
 
 namespace OfficeReserveApp.MVVM.Views;
 
 public partial class LoginPage : ContentPage
 {
-    LoginPageViewModel ViewModel = new LoginPageViewModel();   
+    BaseViewModel ViewModel;
 
     public LoginPage()
 	{
 		InitializeComponent();
-		BindingContext =  ViewModel = new LoginPageViewModel();
-	}
+		BindingContext =  ViewModel = new BaseViewModel();
+    }
     protected override void OnAppearing()
     {
         base.OnAppearing();
@@ -22,8 +21,8 @@ public partial class LoginPage : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-        ViewModel.LoginAction();
-        if (ViewModel.LoginIsSuccessful())
+        ViewModel.Login();
+        if (ViewModel.UserIsAuthenticated())
         {
             ViewModel.RouteBasedOnIdenitity();
         }
@@ -37,7 +36,7 @@ public partial class LoginPage : ContentPage
     {
         ViewModel.LoginRequest.Password = "Avansbreda1!";
         ViewModel.LoginRequest.UserName = "medewerker";
-        ViewModel.LoginAction();
+        ViewModel.Login();
 
         ViewModel.RouteBasedOnIdenitity();
     }
@@ -46,7 +45,7 @@ public partial class LoginPage : ContentPage
     {
         ViewModel.LoginRequest.Password = "Avansbreda2@";
         ViewModel.LoginRequest.UserName = "officemedewerkerutrecht";
-        ViewModel.LoginAction();
+        ViewModel.Login();
 
         ViewModel.RouteBasedOnIdenitity();
     }

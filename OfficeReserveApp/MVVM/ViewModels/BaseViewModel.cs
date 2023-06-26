@@ -22,8 +22,9 @@ namespace OfficeReserveApp.MVVM.ViewModels
         protected AuthenticationService AuthenticationService { get; private set; }
         protected HttpClient Client { get; private set; } = App.client;
         public ICommand LogoutCommand => new Command(() => { Logout(); });
+        public LoginRequestModel LoginRequest { get; set; } = new LoginRequestModel();
 
-  
+
 
         /*        while array is not empty animate the loading image */
         public Boolean IsLoading
@@ -32,7 +33,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
                 return Loadingqueue.Count > 0;
             } 
         }
-        private List<string> Loadingqueue { get;  set; } = new List<string>();
+        protected List<string> Loadingqueue { get;  set; } = new List<string>();
 
         public BaseViewModel(Image image = null)
         {
@@ -61,8 +62,6 @@ namespace OfficeReserveApp.MVVM.ViewModels
             }
         }
 
-    
-
         public void Logout()
         {
             AuthenticationService.Logout();
@@ -70,9 +69,9 @@ namespace OfficeReserveApp.MVVM.ViewModels
             app.MainPage = new AppShell();
         }
 
-        public async void Login(LoginRequestModel loginRequest)
+        public async void Login()
         {
-            await AuthenticationService.Login(loginRequest);
+            await AuthenticationService.Login(LoginRequest);
             RouteBasedOnIdenitity();
         }
 
@@ -101,7 +100,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
             }
         }
 
-        private Boolean UserIsAuthenticated()
+        public Boolean UserIsAuthenticated()
         {
             return AuthenticationService.UserIsAuthenticated();
         }

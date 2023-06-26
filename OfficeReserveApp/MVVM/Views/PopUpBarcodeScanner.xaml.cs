@@ -1,6 +1,5 @@
 using CommunityToolkit.Maui.Views;
 using OfficeReserveApp.MVVM.ViewModels;
-using ZXing.QrCode.Internal;
 
 namespace OfficeReserveApp.MVVM.Views;
 

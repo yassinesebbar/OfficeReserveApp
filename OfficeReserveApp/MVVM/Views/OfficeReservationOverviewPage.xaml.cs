@@ -1,8 +1,5 @@
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.PlatformConfiguration;
 using OfficeReserveApp.MVVM.Models;
 using OfficeReserveApp.MVVM.ViewModels;
-using PropertyChanged;
 
 namespace OfficeReserveApp.MVVM.Views;
 
