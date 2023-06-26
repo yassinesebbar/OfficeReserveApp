@@ -30,10 +30,10 @@ namespace OfficeReserveApp.MVVM.ViewModels
         public Boolean IsLoading
         {
             get {
-                return Loadingqueue.Count > 0;
+                return Loadingque.Count > 0;
             } 
         }
-        protected List<string> Loadingqueue { get;  set; } = new List<string>();
+        private List<string> Loadingque { get;  set; } = new List<string>();
 
         public BaseViewModel(Image image = null)
         {
@@ -44,18 +44,18 @@ namespace OfficeReserveApp.MVVM.ViewModels
         }
 
 /*        Add active processes to Loadingqueue array while array is niet empty animate the loading image
-*/        public void AddToLoadingqueue(string process)
+*/        public void AddToLoadingque(string process)
         {
-            Loadingqueue.Add(process);
+            Loadingque.Add(process);
             if (LoadingImage != null)
             {
                 LoadingImage.IsAnimationPlaying = IsLoading;
             }
         }
 
-        public  void RemoveFromLoadingqueue(string process)
+        public void RemoveFromLoadingque(string process)
         {
-            Loadingqueue.Remove(process);
+            Loadingque.Remove(process);
             if (LoadingImage != null)
             {
                 LoadingImage.IsAnimationPlaying = IsLoading;
@@ -69,7 +69,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
             app.MainPage = new AppShell();
         }
 
-        public async void Login()
+        public async Task Login()
         {
             await AuthenticationService.Login(LoginRequest);
             RouteBasedOnIdenitity();

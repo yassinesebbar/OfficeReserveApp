@@ -75,7 +75,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             string process = Constants.CreateOffieceReservation_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             Reservation NewReservation = new()
             {
@@ -97,7 +97,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
                 GetMyConferenceReservations();
             }
 
-            RemoveFromLoadingqueue(process);
+            RemoveFromLoadingque(process);
         }
 
         public Boolean ReadyToCreateReservationCheck()
@@ -152,11 +152,11 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             string process = Constants.GetConferenceReservations_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             MyConferenceReservations = await ReservationService.TaskGetMyConferenceReservations();
 
-            RemoveFromLoadingqueue(process);
+            RemoveFromLoadingque(process);
         }
 
         public async void DeleteConferenceReservations(object obj)
@@ -164,26 +164,26 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             string process = Constants.DeleteMyConferenceReservations_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             Reservation reservation = (Reservation)obj;
             ActionResult actionResult = await ReservationService.TaskDeleteMyConferenceReservation(reservation);
 
             SnackBar.Result(actionResult);
             GetMyConferenceReservations();
-
-            RemoveFromLoadingqueue(process);
+            GetDailyAvailability();
+            RemoveFromLoadingque(process);
         }
 
         public async void GetOffices()
         {
             string process = Constants.GetOffices_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             Offices = await ReservationService.TaskGetOffices();
 
-            RemoveFromLoadingqueue(process);
+            RemoveFromLoadingque(process);
 
         }
 
@@ -191,18 +191,18 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             string process = Constants.GetConferences_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             Conferences = await ReservationService.TaskGetConferences();
 
-            RemoveFromLoadingqueue(process);
+            RemoveFromLoadingque(process);
         }
 
         public async void GetReservationsByConferenceAndDate()
         {
             string process = Constants.GetConferenceReservations_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             if (SelectedDay != null && SelectedConference != null)
             {
@@ -215,7 +215,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
                 ConferenceReservations = await ReservationService.TaskGetConferenceReservations(ConferenceDate);
             }
 
-            RemoveFromLoadingqueue(process);        
+            RemoveFromLoadingque(process);        
         }
 
 
@@ -223,11 +223,11 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             string process = Constants.GetAvailabilityDays_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             ConferenceDailyAvailabilities = await ReservationService.TaskGetConferenceDailyAvailability();
 
-            RemoveFromLoadingqueue(process);
+            RemoveFromLoadingque(process);
         }
 
         public void FilterConferences()

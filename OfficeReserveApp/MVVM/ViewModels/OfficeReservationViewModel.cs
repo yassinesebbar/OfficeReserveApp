@@ -54,7 +54,7 @@ namespace OfficeReserveApp.MVVM.ViewModels
 
             string process = Constants.CreateOffieceReservation_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             Reservation NewReservation = new()
             {
@@ -68,23 +68,24 @@ namespace OfficeReserveApp.MVVM.ViewModels
                 ActionResult actionResult = await ReservationService.TaskCreateReservation(NewReservation);
                 SnackBar.Result(actionResult);
                 GetMyOfficeReservations();
+                GetDailyAvailability();
             }
 
-            RemoveFromLoadingqueue(process);
+            RemoveFromLoadingque(process);
         }
 
         public async void DeleteOfficeReservation(object obj)
         {
             string process = Constants.DeleteOfficeReservation_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             Reservation reservation = (Reservation)obj;
             ActionResult actionResult = await ReservationService.TaskDeleteMyReservation(reservation);
             SnackBar.Result(actionResult);
             GetMyOfficeReservations();
-
-            RemoveFromLoadingqueue(process);
+            GetDailyAvailability();
+            RemoveFromLoadingque(process);
 
         }
 
@@ -92,11 +93,11 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             string process = Constants.GetMyOfficeReservations_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             MyOfficeReservations = await ReservationService.TaskGetMyOfficeReservations();
 
-            RemoveFromLoadingqueue(process);
+            RemoveFromLoadingque(process);
 
         }
 
@@ -104,12 +105,12 @@ namespace OfficeReserveApp.MVVM.ViewModels
         {
             string process = Constants.GetDailyAvailability_Process;
 
-            AddToLoadingqueue(process);
+            AddToLoadingque(process);
 
             OfficeDailyAvailabilities = await ReservationService.TaskGetMyOfficeDailyAvailability();
             
 
-            RemoveFromLoadingqueue(process);
+            RemoveFromLoadingque(process);
         }
 
         public Boolean ReadyToCreateReservationCheck()

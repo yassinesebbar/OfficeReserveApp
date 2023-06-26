@@ -1,5 +1,4 @@
-﻿using OfficeReserveApp.MVVM.ViewModel;
-using OfficeReserveApp.MVVM.ViewModels;
+﻿using OfficeReserveApp.MVVM.ViewModels;
 using OfficeReserveApp.MVVM.Views;
 
 namespace OfficeReserveApp;
